@@ -1,6 +1,6 @@
 # NAC 01 Andrey Masiero 4°semestre
 
-Avaliação, app em react-native de uma do projeto am.
+Avaliação, app em react-native do projeto am.
 
 ## Alunos Turma 2TDSJ 
 
@@ -14,7 +14,7 @@ RAPHAEL SANTANTONIO DE CAMARGO RM: 83088<BR/>
 ### Rodar  projeto
 
 ```
-git clone 
+git clone https://github.com/Abr3Dev/App-AM-nac.git
 ```
 
 
