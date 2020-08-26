@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './screens/tela-login/index'
 import PreLogin from './screens/tela-pre-login/index'
+import TelaPrincipal from './screens/tela-principal/index'
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,7 +16,8 @@ class App extends React.Component{
     return(
       <>
         {/* <Login/> */}
-        <PreLogin/>
+        {/* <PreLogin/> */}
+      <TelaPrincipal/>
       </>
     )
   }
