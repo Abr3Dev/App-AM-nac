@@ -15,6 +15,8 @@ class App extends React.Component{
   render(){
     return(
       <>
+
+         {/* <comoFunciona/> */}
         {/* <Login/> */}
         {/* <PreLogin/> */}
       <TelaPrincipal/>
