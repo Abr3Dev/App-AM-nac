@@ -19,10 +19,11 @@ class App extends React.Component {
     return (
       <>
         {/* <ComoFunciona /> */}
+        {/* <vcSabia /> */}
         {/* <Login/> */}
         {/* <PreLogin/> */}
         {/* <TelaPrincipal /> */}
-        {/* <TelaVoceSabia /> */}
+      
       </>
     );
   }

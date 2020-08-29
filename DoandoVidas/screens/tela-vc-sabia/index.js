@@ -13,7 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
-export default class comoFunciona extends React.Component {
+export default class vcSabia extends React.Component {
   render() {
     return (
       <>
