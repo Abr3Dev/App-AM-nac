@@ -5,7 +5,7 @@ import HowWorks from '../..//assets/tela-pre-login/bolinha-prancheta.png';
 
  //CODIGO FEITO POR ANDRÉ KANCELSKIS//
 
-export default class comoFunciona extends React.Component{
+export default class ComoFunciona extends React.Component{
     render(){
         return( 
             <>
