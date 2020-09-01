@@ -23,7 +23,7 @@ cd App-AM-nac
 npm install
 ```
 ```
-react native run android
+react-native run-android
 ```
-### react-native run-android
+### Prints/Descrições
 
