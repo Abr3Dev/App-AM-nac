@@ -16,9 +16,14 @@ RAPHAEL SANTANTONIO DE CAMARGO RM: 83088<BR/>
 ```
 git clone https://github.com/Abr3Dev/App-AM-nac.git
 ```
-
-
-
+```
+cd App-AM-nac
+```
 ```
 npm install
 ```
+```
+react native run android
+```
+### react-native run-android
+
