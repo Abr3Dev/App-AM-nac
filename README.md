@@ -26,4 +26,8 @@ npm install
 react-native run-android
 ```
 ### Prints/Descrições
+<img src="https://github.com/Abr3Dev/App-AM-nac/blob/master/screenshots/Screenshot_1599001301.png" height=400px>
+<p><b>Descrição:</b> Tela de Login, aqui o usuário fará login e se estiver compatível com seus dados préviamente cadastrados, terá acesso ao seu aplicativo.</p><br/>
 
+<img src="https://github.com/Abr3Dev/App-AM-nac/blob/master/screenshots/Screenshot_1599001301.png" height=400px>
+<p><b>Descrição:</b> .</p>
