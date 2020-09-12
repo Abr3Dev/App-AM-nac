@@ -1,155 +1,110 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native';
-import logo from '../..//assets/Logo.png';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions} from 'react-native';
 import HowWorks from '../..//assets/tela-pre-login/bolinha-prancheta.png';
 import YouKnow from '../..//assets/tela-pre-login/bolinha-olho.png';
 import Questions from '../..//assets/tela-pre-login/bolinha-duvidas.png';
 import SNT from '../..//assets/tela-pre-login/bolinha-hospital.png';
+import Header from '../../components/Header'
+import OptionNav from '../../components/OptionNav'
+import MainButton from '../../components/MainButton'
 
 
 
 export default class PreLogin extends React.Component {
 
-    navigateOption1 = () =>{
+
+    //Deixa isso mais pequeno, tem muitas funções para a mesma coisa, mudando apenas um
+  
+    navigateComoFunciona = () =>{
         const {navigation : {navigate}} = this.props;
         navigate('ComoFunciona',{
-        });
-    }
-
-    navigateOption2 = () =>{
-        const {navigation : {navigate}} = this.props;
-        navigate('VoceSabia',{
     });
+}
+    navigateVoceSabia = () =>{
+        const {navigation : {navigate}} = this.props;
+        navigate('VoceSabia')
     }
-    navigateOption3 = () =>{
+    navigateLogin = () =>{
         const {navigation : {navigate}} = this.props;
         navigate('Login',{
         });
     }
-    //As opções 1 e 2 são apenas para ir e voltar. não tem saída daquelas telas. 
-    //A opção 3 encaminha para a tela de login, que, emcaminhará para a tela principal.
-
+    navigateCadastro = () =>{
+        const {navigation : {navigate}} = this.props
+        navigate('Cadastro');
+    }
+   
     render() {
+        const {navigation : {navigate}} = this.props;
         return (
             <>
-                <View style={styles.header}>
-                    <Image style={styles.logo} source={logo} />
-                </View>
-                <View style={styles.container}>
+               <Header text={'Doando vidas'} sizeText={22}/>
+               <View style={styles.container}>
                     <Text style={styles.saudation}>Olá visitante! Seja bem-vindo</Text>
-                    <View style={styles.options}>
-                        <View style={styles.up}>
-                            <TouchableOpacity onPress={() => this.navigateOption1()}>
-                                <Image source={HowWorks} />
-                            </TouchableOpacity>
-                            <Text style={styles.optionTxt}>Como funciona</Text>
-                            <TouchableOpacity onPress={() => console.warn('Dúvidas frequentes')}>
-                                <Image source={Questions} />
-                            </TouchableOpacity>
-                            <Text>Dúvidas frequentes</Text>
-                        </View>
-                        <View style={styles.down}>
-                            <TouchableOpacity onPress={() => this.navigateOption2()}>
-                                <Image source={YouKnow} />
-                            </TouchableOpacity>
-                            <Text style={styles.optionTxt}>Você sabia?</Text>
-                            <TouchableOpacity onPress={() => console.warn('Saiba mais sobre o SNT')}>
-                                <Image source={SNT} />
-                            </TouchableOpacity>
-                            <Text>Saiba mais sobre o SNT</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity onPress={() => this.navigateOption3()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonTxt}>Quero ser um doador</Text>
-                        </View>
+
+                    <View style={styles.content}>
+
+                    
+                    <TouchableOpacity onPress={this.navigateComoFunciona} style={styles.item}>
+                        <OptionNav image={HowWorks} description={'Como Funciona'} />
                     </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.navigateVoceSabia} style={styles.item}>
+                        <OptionNav image={YouKnow} description={'Você sabia'} navigation={navigate}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.item}>
+                        <OptionNav image={Questions} description={'Dúvidas frequentes'}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.item}>
+                        <OptionNav image={SNT} description={'Saiba mais sobre o SNT'}/>
+                    </TouchableOpacity>
+                    </View>
+                <TouchableOpacity onPress={this.navigateCadastro}>
+                <MainButton text={'Quero ser um doador!'} bgColor={'#AE191D'} textColor={'white'}/>
+                </TouchableOpacity>
                     <View>
-                        <TouchableOpacity onPress={() => console.warn('Já sou um doador')}>
+                        <TouchableOpacity onPress={this.navigateLogin} style={styles.item}>
                             <Text style={styles.footerTxt}>Já sou um doador!</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-
+                    </View>
             </>
         )
     }
-
 }
 
+const widthContainer = Dimensions.get('screen').width / 100 * 80
+
 const styles = StyleSheet.create({
-
-    container: {
-        flex: 0.9,
-        flexDirection: 'column',
-        justifyContent: 'space-around'
-    },
-    header: {
-        backgroundColor: '#1B511C',
-        paddingVertical : 15
-    },
-    logo: {
-        alignSelf: 'flex-end',
-        marginLeft : 12,
-        paddingLeft: 34,
-        paddingRight: 34,
-        paddingTop: 31,
-        paddingBottom: 20,
-        height: 30,
-        width: 40
-    },
-    saudation: {
-        alignSelf: 'center',
-        marginTop: 20,
-        marginBottom: 30,
-        fontWeight: 'bold',
-        color: '#009640',
-
-    },
-    options: {
-        flex: 0.5,
-        marginTop: 20,
-        marginBottom: 30,
-        alignSelf: 'stretch',
-        justifyContent: 'space-around',
-        flexDirection: 'column'
-    },
-    up: {
-        alignSelf: 'flex-start',
-        position: 'absolute',
-        alignItems: 'center',
-        left: 30
-    },
-    down: {
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-        right: 30
-    },
-    optionTxt: {
-        marginBottom: 30
-    },
-    button: {
-        marginTop : 30,
-        aspectRatio: 4.5,
-        alignSelf: 'center',
-        borderRadius: 10,
-        padding: 15,
-        backgroundColor: '#AE191D',
-
-    },
-    buttonTxt: {
-        fontWeight: 'bold',
-        fontSize: 24,
-        textAlign: 'center',
-        color: 'white'
-    },
-    footerTxt: {
+    saudation : {
         alignSelf : 'center',
-        marginTop : 30,
-        color: 'black',
-        fontSize : 15,
-        textDecorationLine : 'underline' 
+        marginVertical : 16,
+        color : '#009640',
+        fontWeight : 'bold'
+    },  
+    container : {
+        flexDirection : 'column',
+        width : widthContainer,
+        alignSelf : 'center',
+        justifyContent : 'space-between',
+    },
+    content : {
+        justifyContent : 'space-between',
+        flexDirection : 'row',
+        flexWrap : 'wrap',
+    },
+    item : {
+        marginVertical : 12
+    },
+    button : {
+        marginVertical : 160
+    },  
+    footerTxt : {
+        textAlign : 'center',
+        textDecorationLine : 'underline',
     }
-
+   
 });
 

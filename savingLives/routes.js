@@ -6,9 +6,13 @@ import Login from './screens/login';
 import TelaPrincipal from './screens/principal';
 import PreLogin from './screens/preLogin';
 import VoceSabia from './screens/VoceSabia';
+import Carousel from './screens/Carousel'
 
 const StackNavigator = createStackNavigator(
     {
+        Carousel : {
+            screen : Carousel
+        },
         ComoFunciona : {
             screen : ComoFunciona
         },
@@ -26,7 +30,7 @@ const StackNavigator = createStackNavigator(
         }, 
     },
     {
-       initialRouteName : 'PreLogin',
+       initialRouteName : 'Carousel',
        headerMode : 'none'
     }
 );
