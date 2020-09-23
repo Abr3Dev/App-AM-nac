@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, Image, TouchableOpacity, Dimensions, ScrollView, ImageBackground} from 'react-native';
 import logo from '../../../assets/images/happyFamily.png';
+import MainButton from '../../MainButton';
 
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('window').height
@@ -16,10 +17,7 @@ function LandingWarn(){
        <View style={styles.container}>
            <Text style={styles.mainText}>AVISE SUA FAMILIA</Text>
            <Text style={styles.description}>Esse é o passo mais importante pois de acordo com a legislação somente ela poderá autorizar a doação.</Text>
-           <Text style={[styles.description, styles.emphasis]}>Cadastre-se e ajude quem mais precisa</Text>
-        </View>
-        <View style={styles.footer}>
-            <Text>Icone de passar</Text>
+           <MainButton text='Cadastre-se e ajude quem mais precisa' bgColor='#009640' textColor='white'/>
         </View>
        </ImageBackground>
     
@@ -57,7 +55,8 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         fontSize : 32,
         textAlign : 'center',
-        color : 'white'
+        color : 'white',
+        borderRadius : 5
     },
     description : {
         color : 'white',

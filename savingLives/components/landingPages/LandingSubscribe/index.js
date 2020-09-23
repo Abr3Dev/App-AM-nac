@@ -15,9 +15,6 @@ function LandingSubscribe(){
             <Text style={styles.sentence}>A doação de órgãos é um ato nobre que pode salvar vidas</Text>
             <Text style={styles.mainText}>Faça seu Cadastro</Text>
         </View>
-        <View style={styles.footer}>
-            <Text>Icone de passar</Text>
-        </View>
             </ImageBackground>
         </View>
     )

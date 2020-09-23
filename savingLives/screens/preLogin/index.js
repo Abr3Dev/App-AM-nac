@@ -30,8 +30,13 @@ export default class PreLogin extends React.Component {
         });
     }
     navigateCadastro = () =>{
-        const {navigation : {navigate}} = this.props
+        const {navigation : {navigate}} = this.props;
         navigate('Cadastro');
+    }
+
+    navigateDuvidas = () =>{
+        const {navigation : {navigate}} = this.props;
+        navigate('DuvidasFrequentes');
     }
    
     render() {
@@ -53,7 +58,7 @@ export default class PreLogin extends React.Component {
                         <OptionNav image={YouKnow} description={'Você sabia'} navigation={navigate}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity style={styles.item} onPress={this.navigateDuvidas}>
                         <OptionNav image={Questions} description={'Dúvidas frequentes'}/>
                     </TouchableOpacity>
 

@@ -7,6 +7,7 @@ import TelaPrincipal from './screens/principal';
 import PreLogin from './screens/preLogin';
 import VoceSabia from './screens/VoceSabia';
 import Carousel from './screens/Carousel'
+import DuvidasFrequentes from './screens/DuvidasFrequentes';
 
 const StackNavigator = createStackNavigator(
     {
@@ -27,7 +28,10 @@ const StackNavigator = createStackNavigator(
         },
         TelaPrincipal : {
             screen : TelaPrincipal
-        }, 
+        },
+        DuvidasFrequentes : {
+            screen : DuvidasFrequentes
+        }
     },
     {
        initialRouteName : 'Carousel',

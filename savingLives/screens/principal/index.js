@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Image, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Text, ActivityIndicator, Dimensions } from 'react-native';
 import logo from '../..//assets/Logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBars as faBars } from '@fortawesome/free-solid-svg-icons';
-import {faCamera as faCamera} from '@fortawesome/free-solid-svg-icons';
 import {faPlay as play} from '@fortawesome/free-solid-svg-icons';
-import {faVideo as video} from '@fortawesome/free-solid-svg-icons';
-import {faUsers as family} from '@fortawesome/free-solid-svg-icons';
-import photo from '../..//assets/tela-principal/foto-baixo.png';
-import {fetchUser} from '../../api/api';
+import {faInfo as infos} from '@fortawesome/free-solid-svg-icons';
+import {faPencilAlt as pencil} from '@fortawesome/free-solid-svg-icons';
+import Header from '../../components/Header';
+import { ScrollView } from 'react-native-gesture-handler';
+import Topic from '../../components/Topic';
+import MinhasInformacoes from '../MinhasInformacoes/'
+import MinhaMensagem from '../MinhaMensagem';
+import MeuVideo from '../MeuVideo';
 
+const width = Dimensions.get('screen').width / 100 * 90
 
 
 
@@ -21,171 +23,127 @@ export default class TelaPrincipal extends React.Component{
         picture : '',
         loading: true,
         error : false,
+        colorIcon : '#C6C5C5',
+        colorFont : '#C6C5C5',
+        nameTopic : ''
     };
+    componentDidMount = () =>{
+        this.setState({
+            nameTopic : 'MinhasInformacoes',
+        })
+    }
+
+    onScrollColor = e => {
+        let position = e.nativeEvent.contentOffset.x
+        if(position == 0){
+            this.setState({
+                nameTopic : 'MinhasInformacoes',
+            })
+        }else if(position == 324){
+            console.log('chegou em 324')
+            this.setState({
+                nameTopic : 'MinhaMensagem'
+            })
+        }else if(position == 648){
+            this.setState({
+                nameTopic : 'MeuVideo'
+            })
+        }
+    }
 
 
-    //Traz um usuário aleatório api.
-    //Esse código de request deveria estar presente na parte de login. 
-    //Porém não estava conseguindo trafegar os dados através do navigate.
-     async componentDidMount(){
-         try{
-             const data = await fetchUser();
-             this.setState({
-                 id : data.id,
-                 user : data.name,
-                 picture : data.picture,
-                 loading: false,
-                 error:false,
-             });
-         
-         }catch(e){
-             console.log(e);
-             this.setState({
-                 loading: false,
-                 error : true
-             });
-         }
-     }
     render(){
-
-        const {loading, error, id, user, picture} = this.state;
-
+        const {colorIcon, colorFont, nameTopic} = this.state
         return( 
-            <>
-            {loading && <ActivityIndicator size='large'/>}
-            {!loading && !error &&(
-                <>
-                <View style={styles.header}>    
-                <FontAwesomeIcon
-                        icon={faBars}
-                        size={32}
-                        style={styles.iconBar} />
-               <TextInput style={styles.inputHeader} placeholder={'Pesquisar'}/>
-               <Image source={logo}/>
-            </View>
-            <View style={styles.userContainer}>
-                <View style={styles.userIformations}>
-                <View style={styles.photo}>
-                    <Image style={styles.imageUser} height={100} width={100} source={{uri : picture}}/>
-                    <FontAwesomeIcon
-                        icon={faCamera}
-                        size={24}
-                        style={styles.iconCamera}
-                    />
-                </View>
-                <View style={styles.user}>
-                <Text style={styles.userName}>Olá {user}</Text>
-                <Text style={styles.userSettings}>Editar perfil</Text>
-                </View>
+            <ScrollView style={{backgroundColor : '#ECECEC'}}>
+           <Header text={"Minhas informações"}/>
+            <View style={styles.container}>
+                <Image source={logo} style={styles.photo}/>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.reverence}>Olá User!</Text>
+                    <Text style={styles.textReverece}>Aqui você pode visualizar e editar seus dados!</Text>
                 </View>
             </View>
+            
 
-            <View style={styles.options}>
-                    <View style={styles.option}>
-                        <View style={styles.iconContainer}>
-                            <FontAwesomeIcon icon={play} size={48} style={{color : 'white'}}/>
-                        </View>
-                        <Text style={styles.textOption}>Gravar depoimento</Text>
-                    </View>
 
-                    <View style={styles.option}>
-                        <View style={styles.iconContainer}>
-                            <FontAwesomeIcon icon={family} size={48} style={{color : 'white'}}/>
-                        </View>
-                        <Text style={styles.textOption}>Comunicar minha família</Text>
-                    </View>
+            <View style={styles.optionsNavigation}>
+                {nameTopic == 'MinhasInformacoes' && (
+                    <>
+                        <Topic icon={infos} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minhas informações'} backgroundText={colorFont} size={36} />
+                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36}/>
+                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                    </>
+                )}
+                {nameTopic === 'MinhaMensagem' &&(
+                    <>
+                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} />
+                        <Topic icon={pencil} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} />
+                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                    </>
+                )}
 
-                    <View style={styles.option}>
-                        <View style={styles.iconContainer}>
-                            <FontAwesomeIcon icon={video} size={48} style={{color : 'white'}}/>
-                        </View>
-                        <Text style={styles.textOption}>Meus Vídeos</Text>
-                    </View>
-                </View>
-                <Image source={photo} style={styles.photoDown}/>
-                </>
-            )}
-            </>
+                {nameTopic === 'MeuVideo' &&(
+                    <>
+                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} />
+                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} />
+                        <Topic icon={play} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                    </>
+                )}
+               
+            </View>
+
+
+
+
+            {/* Precisa colocar uma função para mudar os Options navigation conforme o scroll ao lado */}
+            <ScrollView style={styles.options} horizontal={true} pagingEnabled={true} onScroll={e=> this.onScrollColor(e)}>
+               <MinhasInformacoes/>
+               <MinhaMensagem/>
+               <MeuVideo/>
+            </ScrollView>
+            </ScrollView>
 
         );
     }
 
 }
 
-
-
 const styles = StyleSheet.create({
-    header : {
-        backgroundColor : '#1B511C',
-        flexDirection : 'row',
-        justifyContent : 'space-between',
-        alignItems : 'center',
-        padding : 8
-    },
-    iconBar : {
-        color : 'white'
-    },
-    inputHeader : {
-        backgroundColor : 'white',
-        borderRadius : 20,
-        paddingHorizontal : 70,
-        paddingVertical : 5,
-        textAlign : 'left',
-    },
-    userContainer : {
-       justifyContent : 'space-around',
-       alignItems : 'center',       
-    },
-    userIformations : {
-        flexDirection : 'row',
-        marginTop : 36
-    },
-    imageUser : {
-       borderRadius : 150,
-    },
-    iconCamera : {
-        position : 'relative',
-        left: 85,
-        bottom : 30,
-        color : 'black',
-        borderRadius : 50,
-    },
-    user : {
-        marginLeft : 24,
-        flexDirection : 'column',
-    },
-    userName : {
-        fontSize : 24,
-        fontWeight : 'bold',
-    },
-    userSettings : {
-        textDecorationLine : 'underline',
-        color : 'grey'
-    },
-    options : {
-        flexDirection : 'row',
-        justifyContent : 'space-around',
-        marginTop : 24
-    },
-    option : {
-        width : 100
-    },
-    iconContainer : {
-        backgroundColor : '#009640',
-        alignItems : 'center',
-        justifyContent : 'center',
-        padding : 12,
-        borderRadius : 16,
-    },
-    textOption : {
-        fontWeight : 'bold',
-        color : '#009640',
-        marginTop : 12,
-        textAlign : 'center'
-    },
-    photoDown : {
-        alignSelf : 'center',
-        marginTop : 12
-    }
+   container : {
+       width : width,
+       alignSelf : 'center',
+       flexDirection : 'row',
+       justifyContent : 'space-between',
+       height : 170,
+       alignItems : 'center'
+   },
+   photo : {
+       width : 100,
+       height : 100,
+       borderRadius : 100
+   },
+   descriptionContainer : {
+       width : 190,
+       flexDirection : 'column',
+       alignItems : 'center'
+   },
+   reverence : {
+       fontSize : 20,
+       marginBottom : 16
+   },
+   textReverece : {
+       textAlign : 'center'
+   },
+   optionsNavigation : {
+       width : width,
+       justifyContent : 'space-between',
+       flexDirection : 'row',
+       alignSelf : 'center'
+   },
+   options : {
+       width : width,
+       alignSelf : 'center'
+   }
 })
 

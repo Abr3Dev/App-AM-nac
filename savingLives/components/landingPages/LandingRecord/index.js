@@ -19,9 +19,6 @@ function LandingRecord(){
            <Text style={styles.description}>Contando a todos que você decidiu ser um doador de vidas</Text>
            <Text style={styles.description}>Depois, faça o upload dentro do nosso aplicativo</Text>
         </View>
-        <View style={styles.footer}>
-            <Text>Icone de passar</Text>
-        </View>
            </ImageBackground>
        </View>
     )
