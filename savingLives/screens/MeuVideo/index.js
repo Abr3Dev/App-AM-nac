@@ -19,7 +19,6 @@ export default function MeuVideo({}){
             </View>
 
 
-    {/* Futuramente pode virar um componente. Repete duas vezes e pode ser usado em outras vezes */}
             <View style={styles.options}>
                 <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close}/>
                 <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload}/>
