@@ -6,14 +6,14 @@ import { faClipboardList as about } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelopeOpenText as afterMessage } from '@fortawesome/free-solid-svg-icons';
 import { faFileVideo as video } from '@fortawesome/free-solid-svg-icons';
 import { faComments as howWork } from '@fortawesome/free-solid-svg-icons';
-import Header from '../../components/Header';
+import HeaderArrow from '../../components/HeaderArrow';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default function Duvidas({ }) {
     return (
         <View style={styles.container}>
-            <Header text={'Dúvidas'} />
+            <HeaderArrow text={'Dúvidas'} marginLeft={-200}/>
             <Title title={"Dúvidas"} />
             <View style={styles.content}>
 
@@ -79,5 +79,5 @@ const styles = StyleSheet.create({
     line : {
         flexDirection : 'row',
         justifyContent : 'space-between'
-    }
+    },
 })

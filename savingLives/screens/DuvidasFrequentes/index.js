@@ -14,7 +14,7 @@ export default class DuvidasFrequentes extends React.Component{
     render(){
         return(
             <>
-                <HeaderArrow text={'Sobre o processo'} />
+                <HeaderArrow text={'Sobre o processo'} marginLeft={-140}/>
                 <Title title={'Minha mensagem'} />
                 <ScrollView>
                 <View style={styles.container}>

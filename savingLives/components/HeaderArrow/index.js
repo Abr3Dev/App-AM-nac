@@ -6,13 +6,13 @@ import { faArrowLeft as left } from '@fortawesome/free-solid-svg-icons';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-function Header({ text, sizeText }) {
+function Header({ text, sizeText, marginLeft }) {
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.resize}>
                     <FontAwesomeIcon icon={left} color={'white'} />
-                    <Text style={[styles.title, { color: 'white', fontSize: sizeText }]}>{text}</Text>
+                    <Text style={{ color: 'white', fontSize: sizeText, marginLeft: marginLeft }}>{text}</Text>
                     <Image style={styles.logo} source={logo} height={40} width={55} />
                 </View>
             </View>
