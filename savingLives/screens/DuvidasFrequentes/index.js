@@ -1,8 +1,11 @@
 import React from 'react'
 import {StyleSheet, Text, View, Image, ScrollView0, Dimensions} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Header from '../../components/Header';
+import HeaderArrow from '../../components/HeaderArrow';
+import Title from '../../components/Title';
 import LinkBar from '../../components/LinkBar/index';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faArrowLeft as left } from '@fortawesome/free-solid-svg-icons';
 const height = Dimensions.get('screen').height;
 
 export default class DuvidasFrequentes extends React.Component{
@@ -11,7 +14,8 @@ export default class DuvidasFrequentes extends React.Component{
     render(){
         return(
             <>
-                <Header/>
+                <HeaderArrow text={'Sobre o processo'} />
+                <Title title={'Minha mensagem'} />
                 <ScrollView>
                 <View style={styles.container}>
                 <LinkBar title="Obrigatoriedade para doação" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
@@ -30,6 +34,6 @@ const styles = StyleSheet.create({
     container : {
         flexDirection : 'column',
         height : height,
-        justifyContent : 'space-around'
-    }
+        justifyContent: 'space-around',
+    },
 });
