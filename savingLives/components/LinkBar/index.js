@@ -33,12 +33,12 @@ class LinkBar extends React.Component{
 
         
 
-        const { title, content } = this.props;
+        const { title, content, style } = this.props;
         const {styleTopic, icon} = this.state;
 
         return (
             <>
-                <View style={styles.container} onTouchEnd={this.clickTopic}>
+                <View style={[styles.container, style]} onTouchEnd={this.clickTopic}>
                     <View style={styles.titleTopic} >
                         <Text style={styles.marginItem}>{title}</Text>
                     </View>

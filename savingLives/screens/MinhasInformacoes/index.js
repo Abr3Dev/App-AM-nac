@@ -9,7 +9,7 @@ import Title from '../../components/Title'
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-
+//MUDAR PARA O COMPONENTE IGUAL AO DA TELA DE LOGIN O INPUT, DA FORMA CERTA
 export default class MinhasInformacoes extends React.Component {
     render() {
         return (
@@ -81,7 +81,7 @@ export default class MinhasInformacoes extends React.Component {
                         label={'Digite sua senha: '}
                     // onKeyPress={this.onPressSenha}
                     />
-                    <MainButton text={'Atualizar dados'} bgColor={'#009640'} textColor={'white'}/>
+                    <MainButton text={'Salvar informações'} bgColor={'#009640'} textColor={'white'}/>
 
                 </View>
             </View>

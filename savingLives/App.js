@@ -18,6 +18,6 @@ import Login from './screens/login';
 
 //Fluxo das telas : PreLogin -> ComoFunciona ou Você sabia ou Login -> TelaPrincipal
 
- export default App = () => <DuvidasFrequentes />;
+ export default App = () => <TelaPrincipal />;
 
 // export default app = () => <Input/>

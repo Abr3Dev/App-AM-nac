@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Image, Text, ActivityIndicator, Dimensions } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Text, ActivityIndicator, Dimensions, PermissionsAndroid, TouchableOpacity, ScrollView } from 'react-native';
 import logo from '../..//assets/Logo.png';
 import {faPlay as play} from '@fortawesome/free-solid-svg-icons';
 import {faInfo as infos} from '@fortawesome/free-solid-svg-icons';
 import {faPencilAlt as pencil} from '@fortawesome/free-solid-svg-icons';
 import Header from '../../components/Header';
-import { ScrollView } from 'react-native-gesture-handler';
 import Topic from '../../components/Topic';
 import MinhasInformacoes from '../MinhasInformacoes/'
 import MinhaMensagem from '../MinhaMensagem';
@@ -51,6 +50,32 @@ export default class TelaPrincipal extends React.Component{
         }
     }
 
+    AskPermissionCamera = async () =>{
+        try{
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                {
+                    title : 'Acesso à câmera',
+                    message : 'Você nos permite acessar sua câmera?',
+                    buttonPositive : 'Permitir',
+                    buttonNegative : 'Negar'
+                    
+                }
+            )
+            if(granted === PermissionsAndroid.RESULTS.GRANTED){
+                console.warn('Você deixou a gente acessar sua câmera!!!')
+            }else{
+                console.warn('Você não deixou a gente acessar à câmera')
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    HandlePermission = async () =>{
+        const granted = await this.AskPermissionCamera();
+    }
+
 
     render(){
         const {colorIcon, colorFont, nameTopic} = this.state
@@ -58,7 +83,9 @@ export default class TelaPrincipal extends React.Component{
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
+                <TouchableOpacity onPress={this.HandlePermission}>
                 <Image source={logo} style={styles.photo}/>
+                </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.reverence}>Olá User!</Text>
                     <Text style={styles.textReverece}>Aqui você pode visualizar e editar seus dados!</Text>
@@ -97,7 +124,7 @@ export default class TelaPrincipal extends React.Component{
 
 
             {/* Precisa colocar uma função para mudar os Options navigation conforme o scroll ao lado */}
-            <ScrollView style={styles.options} horizontal={true} pagingEnabled={true} onScroll={e=> this.onScrollColor(e)}>
+            <ScrollView style={styles.options} horizontal={true} pagingEnabled={true} onScroll={e=> this.onScrollColor(e)} >
                <MinhasInformacoes/>
                <MinhaMensagem/>
                <MeuVideo/>

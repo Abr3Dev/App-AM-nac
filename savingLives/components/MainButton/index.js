@@ -1,14 +1,15 @@
 import React from 'react';
 import {View, Text, Dimensions, StyleSheet, Button} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 //MUDAR PARA UM BOTÃO CERTO COM EVENTO DE CLICK
-function MainButton({text, bgColor, textColor}){
+function MainButton({text, bgColor, textColor, onPress}){
     return (
-        <View style={[styles.container, {backgroundColor : bgColor, borderColor : bgColor}]}>
+        <TouchableOpacity style={[styles.container, {backgroundColor : bgColor, borderColor : bgColor}]} onPress={onPress}>
             <Text style={{color : textColor, textAlign : 'center'}}>{text}</Text>
             
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -15,14 +15,14 @@ export default class DuvidasFrequentes extends React.Component{
         return(
             <>
                 <HeaderArrow text={'Sobre o processo'} marginLeft={-140}/>
-                <Title title={'Minha mensagem'} />
+                <Title title={'Sobre o processo'} />
                 <ScrollView>
                 <View style={styles.container}>
-                <LinkBar title="Obrigatoriedade para doação" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
-                <LinkBar title="Possíveis doadores" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
-                <LinkBar title="Custo para os procedimentos" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
-                <LinkBar title="Tempo de preservação dos órgãos" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
-                <LinkBar title="O processo" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
+                <LinkBar style={styles.margin} title="Obrigatoriedade para doação" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
+                <LinkBar style={styles.margin} title="Possíveis doadores" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
+                <LinkBar style={styles.margin} title="Custo para os procedimentos" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
+                <LinkBar style={styles.margin} title="Tempo de preservação dos órgãos" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
+                <LinkBar style={styles.margin} title="O processo" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
                 </View>
                 </ScrollView>
             </>
@@ -33,7 +33,9 @@ export default class DuvidasFrequentes extends React.Component{
 const styles = StyleSheet.create({
     container : {
         flexDirection : 'column',
-        height : height,
         justifyContent: 'space-around',
     },
+    margin  :{
+        marginBottom : 32
+    }
 });
