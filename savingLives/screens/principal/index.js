@@ -24,7 +24,8 @@ export default class TelaPrincipal extends React.Component{
         error : false,
         colorIcon : '#C6C5C5',
         colorFont : '#C6C5C5',
-        nameTopic : ''
+        nameTopic : '',
+        snap : false
     };
     componentDidMount = () =>{
         this.setState({
@@ -39,7 +40,7 @@ export default class TelaPrincipal extends React.Component{
                 nameTopic : 'MinhasInformacoes',
             })
         }else if(position == 324){
-            console.log('chegou em 324')
+            
             this.setState({
                 nameTopic : 'MinhaMensagem'
             })
@@ -48,6 +49,13 @@ export default class TelaPrincipal extends React.Component{
                 nameTopic : 'MeuVideo'
             })
         }
+    }
+
+    snap = () =>{
+        console.log('snapou')
+        this.setState({
+            snap : true
+        })
     }
 
     AskPermissionCamera = async () =>{
@@ -78,7 +86,7 @@ export default class TelaPrincipal extends React.Component{
 
 
     render(){
-        const {colorIcon, colorFont, nameTopic} = this.state
+        const {colorIcon, colorFont, nameTopic, snap} = this.state
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
@@ -97,34 +105,42 @@ export default class TelaPrincipal extends React.Component{
             <View style={styles.optionsNavigation}>
                 {nameTopic == 'MinhasInformacoes' && (
                     <>
-                        <Topic icon={infos} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minhas informações'} backgroundText={colorFont} size={36} />
-                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36}/>
-                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                        <Topic icon={infos} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
+                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
                     </>
                 )}
                 {nameTopic === 'MinhaMensagem' &&(
                     <>
-                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} />
-                        <Topic icon={pencil} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} />
-                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
+                        <Topic icon={pencil} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
                     </>
                 )}
 
                 {nameTopic === 'MeuVideo' &&(
                     <>
-                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} />
-                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} />
-                        <Topic icon={play} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} />
+                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
+                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic icon={play} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
                     </>
                 )}
                
             </View>
 
 
-
+            
 
             {/* Precisa colocar uma função para mudar os Options navigation conforme o scroll ao lado */}
-            <ScrollView style={styles.options} horizontal={true} pagingEnabled={true} onScroll={e=> this.onScrollColor(e)} >
+            <ScrollView 
+                style={styles.options} 
+                horizontal={true} 
+                onScroll={e=> this.onScrollColor(e)} 
+                snapToInterval={324} 
+                decelerationRate={1.0}
+                snapToStart = {snap}
+                snapToInterval={324}
+            >
                <MinhasInformacoes/>
                <MinhaMensagem/>
                <MeuVideo/>
