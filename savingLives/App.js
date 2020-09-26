@@ -13,11 +13,10 @@ import MinhasInformacoes from './screens/MinhasInformacoes';
 import Title from './components/Title';
 import Duvidas from './screens/Duvidas';
 import Login from './screens/login';
-
-
+import RedefinirSenha from './screens/RedefinirSenha';
+import RedefinirSenhaCodigo from './screens/RedefinirSenhaCodigo';
 
 //Fluxo das telas : PreLogin -> ComoFunciona ou Você sabia ou Login -> TelaPrincipal
 
- export default App = () => <TelaPrincipal />;
-
+export default App = () => <RedefinirSenhaCodigo />;
 // export default app = () => <Input/>
