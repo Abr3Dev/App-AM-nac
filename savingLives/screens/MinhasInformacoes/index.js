@@ -9,7 +9,7 @@ import Title from '../../components/Title'
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-//MUDAR PARA O COMPONENTE IGUAL AO DA TELA DE LOGIN O INPUT, DA FORMA CERTA
+
 export default class MinhasInformacoes extends React.Component {
     render() {
         return (
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        marginBottom: 6,
+        marginBottom: 6
     },
 
 })

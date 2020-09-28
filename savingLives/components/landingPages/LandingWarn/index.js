@@ -12,7 +12,7 @@ const heightTree = height / 2;
 
 function LandingWarn(){
     return (
-        <View>
+        <View style={{flex : 1}}>
        <ImageBackground source={logo} style={styles.background}>
        <View style={styles.container}>
            <Text style={styles.mainText}>AVISE SUA FAMILIA</Text>

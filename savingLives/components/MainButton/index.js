@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet, Button} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {View, Text, Dimensions, StyleSheet, Button, TouchableOpacity} from 'react-native';
 
 
 //MUDAR PARA UM BOTÃO CERTO COM EVENTO DE CLICK

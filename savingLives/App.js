@@ -18,6 +18,6 @@ import RedefinirSenhaCodigo from './screens/RedefinirSenhaCodigo';
 
 //Fluxo das telas : PreLogin -> ComoFunciona ou Você sabia ou Login -> TelaPrincipal
 
-export default App = () => <Login />;
+export default App = () => <TelaPrincipal />;
 
 // export default app = () => <Input/>

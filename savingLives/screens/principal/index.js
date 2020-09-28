@@ -9,6 +9,8 @@ import Topic from '../../components/Topic';
 import MinhasInformacoes from '../MinhasInformacoes/'
 import MinhaMensagem from '../MinhaMensagem';
 import MeuVideo from '../MeuVideo';
+import ImagePicker from 'react-native-image-crop-picker';
+
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -25,7 +27,7 @@ export default class TelaPrincipal extends React.Component{
         colorIcon : '#C6C5C5',
         colorFont : '#C6C5C5',
         nameTopic : '',
-        snap : false
+        snap : 'center'
     };
     componentDidMount = () =>{
         this.setState({
@@ -54,34 +56,44 @@ export default class TelaPrincipal extends React.Component{
     snap = () =>{
         console.log('snapou')
         this.setState({
-            snap : true
+            snap : 'end'
         })
     }
 
-    AskPermissionCamera = async () =>{
-        try{
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.CAMERA,
-                {
-                    title : 'Acesso à câmera',
-                    message : 'Você nos permite acessar sua câmera?',
-                    buttonPositive : 'Permitir',
-                    buttonNegative : 'Negar'
+    // AskPermissionCamera = async () =>{
+    //     try{
+    //         const granted = await PermissionsAndroid.request(
+    //             PermissionsAndroid.PERMISSIONS.CAMERA,
+    //             {
+    //                 title : 'Acesso à câmera',
+    //                 message : 'Você nos permite acessar sua câmera?',
+    //                 buttonPositive : 'Permitir',
+    //                 buttonNegative : 'Negar'
                     
-                }
-            )
-            if(granted === PermissionsAndroid.RESULTS.GRANTED){
-                console.warn('Você deixou a gente acessar sua câmera!!!')
-            }else{
-                console.warn('Você não deixou a gente acessar à câmera')
-            }
-        }catch(e){
-            console.log(e)
-        }
-    }
+    //             }
+    //         )
+    //         if(granted === PermissionsAndroid.RESULTS.GRANTED){
+    //             console.warn('Você deixou a gente acessar sua câmera!!!')
+    //         }else{
+    //             console.warn('Você não deixou a gente acessar à câmera')
+    //         }
+    //     }catch(e){
+    //         console.log(e)
+    //     }
+    // }
 
-    HandlePermission = async () =>{
-        const granted = await this.AskPermissionCamera();
+    // HandlePermission = async () =>{
+    //     const granted = await this.AskPermissionCamera();
+    // }
+
+    useFromLibrary = () =>{
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          });
     }
 
 
@@ -91,7 +103,7 @@ export default class TelaPrincipal extends React.Component{
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.HandlePermission}>
+                <TouchableOpacity onPress={this.useFromLibrary}>
                 <Image source={logo} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>

@@ -9,7 +9,7 @@ const heightTree = height / 2;
 
 function LandingSubscribe(){
     return (
-        <View>
+        <View style={{flex : 1}}>
             <ImageBackground source={logo} style={styles.background}>
             <View style={styles.container}>
             <Text style={styles.sentence}>A doação de órgãos é um ato nobre que pode salvar vidas</Text>

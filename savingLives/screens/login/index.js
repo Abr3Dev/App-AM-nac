@@ -23,24 +23,22 @@ export default class Login extends React.Component {
     //O botão encaminhará para a próxima tela, que fará uma requisição trazendo um usuário aleatório 
 
 
+    click = () =>{
+        console.log('click')
+    }
+
     //ARRUMAR DEPOIS
     render() {
         return (
-            <ScrollView>
-                <Header />
+            
+         
                 <View style={styles.container}>
-                    <View style={styles.image}>
                         <Image style={styles.logo} source={logo} height={80} width={100} />
-                    </View>
-                    <View style={styles.form}>
                         <OutlinedTextField label='E-mail' baseColor={'#1D6F40'} />
                         <OutlinedTextField label='Senha' baseColor={'#1D6F40'} />
                         <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
-                    </View>
-                    <MainButton text='Entrar na minha conta' bgColor={'#009640'} textColor='white'/>
+                    <MainButton text='Entrar na minha conta' bgColor={'#009640'} textColor='white' onPress={() =>{console.log('Login')}}/>
                 </View>
-
-            </ScrollView>
         )
     }
 }
@@ -48,17 +46,16 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
-        width: width,
+        width : width,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignSelf : 'center',
-        height : 500
     },
-    image : {
+    logo : {
         alignSelf : 'center'
     },
     form: {
-        height : 200,
         justifyContent : 'space-between',
         flexDirection : 'column',
     },
