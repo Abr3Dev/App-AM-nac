@@ -6,10 +6,11 @@ import {faInfo as infos} from '@fortawesome/free-solid-svg-icons';
 import {faPencilAlt as pencil} from '@fortawesome/free-solid-svg-icons';
 import Header from '../../components/Header';
 import Topic from '../../components/Topic';
-import MinhasInformacoes from '../MinhasInformacoes/'
+import MinhasInformacoes from '../MinhasInformacoes/';
 import MinhaMensagem from '../MinhaMensagem';
 import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
+
 
 
 const width = Dimensions.get('screen').width / 100 * 90
@@ -27,7 +28,9 @@ export default class TelaPrincipal extends React.Component{
         colorIcon : '#C6C5C5',
         colorFont : '#C6C5C5',
         nameTopic : '',
-        snap : 'center'
+        snap : 'center',
+        photo : '',
+        video : ''
     };
     componentDidMount = () =>{
         this.setState({
@@ -92,19 +95,31 @@ export default class TelaPrincipal extends React.Component{
             height: 400,
             cropping: true
           }).then(image => {
-            console.log(image);
+            this.setState({
+                photo : image.path
+            });
+          });
+    }
+    chooseVideo = () =>{
+        ImagePicker.openPicker({
+            mediaType: 'video',
+          }).then(video => {
+            
+            this.setState({
+                video : video.path
+            })
           });
     }
 
 
     render(){
-        const {colorIcon, colorFont, nameTopic, snap} = this.state
+        const {colorIcon, colorFont, nameTopic, snap, photo, video} = this.state
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
                 <TouchableOpacity onPress={this.useFromLibrary}>
-                <Image source={logo} style={styles.photo}/>
+                <Image source={{uri : photo}} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.reverence}>Olá User!</Text>
@@ -155,7 +170,7 @@ export default class TelaPrincipal extends React.Component{
             >
                <MinhasInformacoes/>
                <MinhaMensagem/>
-               <MeuVideo/>
+               <MeuVideo onPress={this.chooseVideo} video={video}/>
             </ScrollView>
             </ScrollView>
 
