@@ -1,26 +1,32 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Text, Image, TouchableOpacity, Dimensions, ScrollView, ImageBackground} from 'react-native';
+import { StyleSheet, View, Text, Dimensions, ImageBackground} from 'react-native';
 import logo from '../../../assets/images/happyFamily.png';
 import MainButton from '../../MainButton';
 
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('window').height
-const sizeLtetter = width/100 * 70;
-const heightTree = height / 2;
-
-
 
 function LandingWarn(){
+
+    const handleChangeSub = () =>{
+        
+    }
+
+    const handleChangeLogin = () =>{
+        
+    }
+
     return (
         <View style={{flex : 1}}>
        <ImageBackground source={logo} style={styles.background}>
        <View style={styles.container}>
            <Text style={styles.mainText}>AVISE SUA FAMILIA</Text>
            <Text style={styles.description}>Esse é o passo mais importante pois de acordo com a legislação somente ela poderá autorizar a doação.</Text>
-           <MainButton text='Cadastre-se e ajude quem mais precisa' bgColor='#009640' textColor='white'/>
+           <MainButton text='Cadastre-se' bgColor='#009640' textColor='white' onPress={handleChangeSub}/>
+           <Text>Ou</Text>
+           <MainButton text='Faça seu Login' bgColor='#009640' textColor='white' onPress={handleChangeLogin}/>
         </View>
        </ImageBackground>
-    
         </View>
     )
 }
@@ -35,7 +41,7 @@ const styles = StyleSheet.create({
         width : width
     },
     container : {
-        height : height / 100 * 60,
+        height : height / 100 * 80,
         alignItems : 'center',
         alignSelf : 'center',
         marginTop : 24,
