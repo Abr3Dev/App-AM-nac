@@ -67,6 +67,7 @@ export default class MinhasInformacoes extends React.Component {
                             {/* Trocar isso depois, esse componente está muito ruim */}
                             <Picker
                                 selectedValue={"sexo"} style={styles.picker}
+                                
                             // onValueChange={this.onPressSexo}
                             >
                                 <Picker.Item label="Masculino" value="Masculino" />
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 5,
         borderWidth: 1,
-        borderStyle: "dashed",
         backgroundColor: '#FFFFFF',
         borderColor: '#018738',
     },

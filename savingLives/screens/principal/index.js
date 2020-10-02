@@ -30,7 +30,8 @@ export default class TelaPrincipal extends React.Component{
         nameTopic : '',
         snap : 'center',
         photo : '',
-        video : ''
+        video : '',
+        hasVideo : false
     };
     componentDidMount = () =>{
         this.setState({
@@ -106,14 +107,15 @@ export default class TelaPrincipal extends React.Component{
           }).then(video => {
             
             this.setState({
-                video : video.path
+                video : video.path,
+                hasVideo : true
             })
           });
     }
 
 
     render(){
-        const {colorIcon, colorFont, nameTopic, snap, photo, video} = this.state
+        const {colorIcon, colorFont, nameTopic, snap, photo, video, hasVideo} = this.state
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
@@ -155,9 +157,6 @@ export default class TelaPrincipal extends React.Component{
                
             </View>
 
-
-            
-
             {/* Precisa colocar uma função para mudar os Options navigation conforme o scroll ao lado */}
             <ScrollView 
                 style={styles.options} 
@@ -170,7 +169,7 @@ export default class TelaPrincipal extends React.Component{
             >
                <MinhasInformacoes/>
                <MinhaMensagem/>
-               <MeuVideo onPress={this.chooseVideo} video={video}/>
+               <MeuVideo onPress={this.chooseVideo} video={video} hasVideo={hasVideo}/>
             </ScrollView>
             </ScrollView>
 

@@ -2,10 +2,16 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, } from 'react-native';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import DatePicker from 'react-native-datepicker'
-import MainButton from '../../components/MainButton'
+import DatePicker from 'react-native-datepicker';
+import MainButton from '../../components/MainButton';
 import { Picker } from '@react-native-community/picker';
-import Title from '../../components/Title'
+import Title from '../../components/Title';
+import {helpCpf} from '../../Helpers/index'
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+} from 'react-native-material-textfield';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -16,55 +22,29 @@ export default class Cadastro extends React.Component {
     state = {
         nome: '',
         cpf: '',
-        dataNascimento: '',
-        sexo: 'Masculino',
-        Estado: '',
-        cidade: '',
         email: '',
-
+        dataNasc: '',
+        sexo: '',
+        senha : ''
     }
-    componentDidMount() {
-        const day = new Date().getDate();
-        const month = new Date().getMonth() + 1;
-        const year = new Date().getFullYear();
-
+    keyCpf = (cpf) =>{
+        
+        let result = helpCpf(cpf);
         this.setState({
-            dataNascimento: day + '-' + month + '-' + year
-        });
+           cpf : result
+        }); 
     }
 
-    onPressNome = (value) => {
-        this.setState({
-            nome: value
-        })
+    handleSubscribe = () =>{
+        const { nome, cpf, dataNasc, sexo, senha } = this.state
+        const {
+            navigation : {navigate},
+        } = this.props;
+        navigate('TelaPrincipal')
+        
     }
-    onPressEmail = (value) => {
-        this.setState({
-            email: value
-        })
-    }
-    onPressSenha = (value) => {
-        this.setState({
-            senha: value
-        })
-    }
-
-    onPressSexo = (value) => {
-        console.log(value)
-        this.setState({
-            sexo: value
-        })
-    }
-
-    selectDate = (date) => {
-        this.setState({
-            dataNascimento: date
-        });
-    }
-
-
     render() {
-        const { nome, cpf, dataNascimento, sexo, Estado, cidade } = this.state
+        const { nome, cpf, email, dataNasc, sexo, senha } = this.state
         return (
             <ScrollView style={{ backgroundColor: '#ECECEC' }}>
                 <Header text={'Cadastro'} />
@@ -74,70 +54,43 @@ export default class Cadastro extends React.Component {
                 </View>
                 <Title title={"Cadastro pessoal"} />
                 <View style={styles.container}>
-                    <Input
-                        placeholder="Nome"
-                        borderColor='#018738'
-                        label={'Digite seu nome: '}
-                        onKeyPress={this.onPressNome}
-                        key={'nome'}
-                    />
-
-                    <Input
-                        placeholder="E-mail"
-                        borderColor='#018738'
-                        label={'Digite seu E-mail: '}
-                        onKeyPress={this.onPressEmail}
-                    />
-
-                    <View style={styles.smallInputs}>
-
-                        {/* Trocar depois, para o type select */}
-                        <View style={styles.containerInput}>
-                            <Text style={styles.label}>Data de nascimento:</Text>
-                            <DatePicker
-                                style={styles.date}
-                                mode="date"
-                                placeholder="data de nascimento"
-                                format="DD-MM-YYYY"
-                                minDate="05-01-1940"
-                                maxDate={dataNascimento}
-                                date={dataNascimento}
-                                confirmBtnText="Confirmar"
-                                cancelBtnText="Cancel"
-                                onDateChange={this.selectDate}
-                                customStyles={{
-                                    dateIcon: {
-                                        display: 'none'
-                                    },
-                                    dateInput: {
-                                        borderRadius: 5,
-                                        borderWidth: 1,
-                                        backgroundColor: '#FFFFFF',
-                                        borderColor: '#018738',
-                                        height: 35,
-                                        width: 100,
-                                    },
-                                }}
-                            />
-                        </View>
-                        <View style={styles.containerInput}>
-                            <Text style={styles.label}>Sexo:</Text>
-                            {/* Trocar isso depois, esse componente está muito ruim */}
-                            <Picker selectedValue={sexo} style={styles.picker} onValueChange={this.onPressSexo}>
-                                <Picker.Item label="Masculino" value="Masculino" />
-                                <Picker.Item label="Feminino" value="Feminino" />
-                                <Picker.Item label="Outro" value="Outro" />
-                            </Picker>
-                        </View>
-                    </View>
-                    <Input
-                        placeholder="Senha"
-                        borderColor='#018738'
-                        label={'Digite sua senha: '}
-                        onKeyPress={this.onPressSenha}
-                    />
-                    <MainButton text={'Cadastrar'} bgColor={'#3FB06F'} textColor={'white'} />
+                <OutlinedTextField 
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='Nome completo' 
+                    baseColor={'#1D6F40'} 
+                    
+                />
+                <OutlinedTextField 
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='CPF' 
+                    baseColor={'#1D6F40'} 
+                    value={cpf}
+                    onChangeText={(value) => {this.keyCpf(value)}}
+                />
+                <OutlinedTextField 
+                    label='E-mail' 
+                    baseColor={'#1D6F40'} 
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    keyboardType='email-address'
+                />
+                <OutlinedTextField 
+                    label='Data de nascimento' 
+                    baseColor={'#1D6F40'} 
+                    inputContainerStyle={{backgroundColor : 'white'}} 
+                    keyboardType='decimal-pad'
+                />
+                <OutlinedTextField 
+                    label='Sexo' 
+                    baseColor={'#1D6F40'} 
+                    inputContainerStyle={{backgroundColor : 'white'}} 
+                />
+                <OutlinedTextField 
+                    label='Senha' 
+                    baseColor={'#1D6F40'} 
+                    inputContainerStyle={{backgroundColor : 'white'}}  
+                /> 
                 </View>
+                <MainButton text={'Cadastrar'} bgColor={'#3FB06F'} textColor={'white'} onPress={this.handleSubscribe}/>
             </ScrollView>
         )
     }

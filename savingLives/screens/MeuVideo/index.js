@@ -4,27 +4,38 @@ import {View, Text, Dimensions, StyleSheet, TouchableOpacity} from 'react-native
 import MainButton from '../../components/MainButton';
 import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
 import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
+import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import EditButton from '../../components/EditButton';
 import Title from '../../components/Title'
 import Video from 'react-native-video';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-export default function MeuVideo({onPress, video}){
+export default function MeuVideo({onPress, video, hasVideo, onDelete}){
 
     return(
         <View style={styles.container}>
             <Title title={"Meu vídeo"} />
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity>
             <Video source =
                 {{uri : video}}
                 style={styles.video}
+                controls={true}
             />
             </TouchableOpacity>
             
             <View style={styles.options}>
                 <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close}/>
-                <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload}/>
+                {hasVideo && (
+                    <TouchableOpacity onPress={onPress}>
+                    <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload}/>
+                    </TouchableOpacity>
+                )}
+                {!hasVideo &&(
+                    <TouchableOpacity onPress={onPress}>
+                    <EditButton colorButton={'#0389FF'} text='Adionar vídeo' icon={upload}/>
+                    </TouchableOpacity>
+                )}
               
             </View>
 

@@ -16,13 +16,6 @@ const height = Dimensions.get('window').height;
 
 export default class Login extends React.Component {
 
-
-
-    //Não fizemos o envio dos dados, portanto, os inputs não estão funcionando.
-    //Mais pra frente vamos mudar esta classe para poder fazer as devidas alterações e requisições. Sei que não está certo.
-    //O botão encaminhará para a próxima tela, que fará uma requisição trazendo um usuário aleatório 
-
-
     click = () =>{
         console.log('click')
     }
