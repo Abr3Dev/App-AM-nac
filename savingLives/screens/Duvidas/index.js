@@ -11,7 +11,13 @@ import Header from '../../components/Header';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-export default function Duvidas({ }) {
+export default function Duvidas(props) {
+    
+    function click(){
+        const { navigation : {navigate},} = props
+        navigate('DuvidasFrequentes')
+    }
+
     return (
         <View style={styles.container}>
             <Header text={'Dúvidas'}/>
@@ -25,6 +31,7 @@ export default function Duvidas({ }) {
                         backgroundText={'black'} 
                         icon={about}
                         size={36}
+                        onPress={click}
                     />
                     <Topic
                         icon={afterMessage}

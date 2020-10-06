@@ -15,6 +15,7 @@ const width = Dimensions.get('screen').width / 100 * 90
 const height = Dimensions.get('window').height;
 
 export default class Login extends React.Component {
+    
 
     click = () =>{
         const { navigation : {navigate},} = this.props

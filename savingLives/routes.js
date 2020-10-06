@@ -5,15 +5,16 @@ import { faUserAlt as user } from '@fortawesome/free-solid-svg-icons';
 import { faVideo as upload } from '@fortawesome/free-solid-svg-icons';
 import { faInfo as info } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt as logout } from '@fortawesome/free-solid-svg-icons';
-import Login from './screens/login';
-import Duvidas from './screens/Duvidas/index';
-import TelaPrincipal from './screens/telaPrincipal';
-import VideoScreen from './screens/VideoScreen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import Cadastro from './screens/Cadastro';
 import Carousel from './screens/Carousel';
-import Logout from './screens/Logout'
+import Logout from './screens/Logout';
+import Login from './screens/login';
+import Duvidas from './screens/Duvidas/index';
+import TelaPrincipal from './screens/telaPrincipal';
+import VideoScreen from './screens/VideoScreen';
+import DuvidasFrequentes from './screens/DuvidasFrequentes';
 
 const getTabBarIcon = (icon) => ({tintColor}) =>(
     <FontAwesomeIcon
@@ -100,7 +101,7 @@ const TabNavigator = createBottomTabNavigator(
         TelaPrincipal : UserScreens,
         VideoScreen : VideoScreens,
         Login : QuestionScreens,
-        Logout : LogoutScreens
+        Logout : LogoutScreens,
         
     },
     {
@@ -133,6 +134,9 @@ const stackNavigator = createStackNavigator(
         },
         TabNavigator : {
             screen : TabNavigator
+        },
+        DuvidasFrequentes :{
+            screen : DuvidasFrequentes
         }
     },
     {

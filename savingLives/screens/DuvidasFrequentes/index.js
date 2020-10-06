@@ -1,22 +1,25 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image, ScrollView0, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import HeaderArrow from '../../components/HeaderArrow';
 import Title from '../../components/Title';
 import LinkBar from '../../components/LinkBar/index';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faArrowLeft as left } from '@fortawesome/free-solid-svg-icons';
+import Header from '../../components/Header';
 const height = Dimensions.get('screen').height;
 
 export default class DuvidasFrequentes extends React.Component{
     
+    click = () =>{
+        const { navigation : {navigate},} = this.props
+        navigate('Duvidas')
+        console.log('Entou aqui')
+    }
     
     render(){
         return(
             <>
-                <HeaderArrow text={'Sobre o processo'} marginLeft={-140}/>
-                <Title title={'Sobre o processo'} />
+                <Header text={'Dúvidas frequentes'} onPress={this.click} isnavigable={true}/>
                 <ScrollView>
+                <Title title={'Sobre o processo'} />
                 <View style={styles.container}>
                 <LinkBar style={styles.margin} title="Obrigatoriedade para doação" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
                 <LinkBar style={styles.margin} title="Possíveis doadores" content='Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsunv v Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun Lorem Ipmsun'/>
