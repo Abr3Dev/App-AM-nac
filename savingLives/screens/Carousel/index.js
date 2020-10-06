@@ -7,6 +7,18 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Pages} from 'react-native-pages';
 
 export default class Carousel extends React.Component{
+
+    
+
+    navigateSub = () =>{
+        const { navigation : {navigate},} = this.props
+        navigate('Cadastro')
+    }
+
+    navigateLogin = () =>{
+        const { navigation : {navigate},} = this.props
+        navigate('Login')
+    }
     
    render(){
     
@@ -15,7 +27,7 @@ export default class Carousel extends React.Component{
         <Pages>
             <LandingSubscribe/>
             <LandingRecord/>
-            <LandingWarn/>
+            <LandingWarn onPressSub={this.navigateSub} onPressLogin={this.navigateLogin}/>
         </Pages>      
       
       

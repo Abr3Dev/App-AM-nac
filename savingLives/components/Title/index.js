@@ -3,9 +3,9 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native'
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-export default function Title({title}){
+export default function Title({title, style}){
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
             <Text style={styles.title}>{title}</Text>
         </View>
     )
@@ -14,7 +14,7 @@ export default function Title({title}){
 const styles = StyleSheet.create({
     
     container :{
-        width : width,
+        
         alignSelf : 'center',
         borderBottomColor :'#018738',
         paddingVertical : 16,

@@ -2,9 +2,12 @@ import React from 'react';
 import { View, Text, Dimensions, ScrollView, TextInput, StyleSheet, FlatList } from 'react-native';
 import Input from '../../components/Input';
 import Title from '../../components/Title';
-import Topic from '../../components/Topic';
-import { faPlus as plus } from '@fortawesome/free-solid-svg-icons'
 import MainButton from '../../components/MainButton';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+} from 'react-native-material-textfield';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -35,8 +38,8 @@ export default class MinhaMensagem extends React.Component {
                         Será enviado para:
                     </Text>
                    
-                    <Input borderColor="#009640" label={"E-mail da pessoa:"} style={styles.input}/>
-                    <Input borderColor="#009640" label={"E-mail da pessoa:"} />
+                    <OutlinedTextField label='E-mail da pessoa 1' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
+                    <OutlinedTextField label='E-mail da pessoa 2' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
                     
 
                     {/* <View style={styles.addMore}>
@@ -70,6 +73,8 @@ const styles = StyleSheet.create({
         marginBottom : 16,
         elevation: 7,
         borderRadius: 5,
+        width : width,
+        alignSelf : "center"
     },
     for: {
         fontSize: 22,

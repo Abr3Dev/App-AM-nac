@@ -6,11 +6,11 @@ import {faInfo as infos} from '@fortawesome/free-solid-svg-icons';
 import {faPencilAlt as pencil} from '@fortawesome/free-solid-svg-icons';
 import Header from '../../components/Header';
 import Topic from '../../components/Topic';
-import MinhasInformacoes from '../MinhasInformacoes/';
+import MinhasInformacoes from '../MinhasInformacoes';
 import MinhaMensagem from '../MinhaMensagem';
 import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import user from '../..//assets/defaults/user.png';
 
 
 const width = Dimensions.get('screen').width / 100 * 90
@@ -22,22 +22,16 @@ export default class TelaPrincipal extends React.Component{
     state = {
         id : 0,
         user : '',
-        picture : '',
         loading: true,
         error : false,
         colorIcon : '#C6C5C5',
         colorFont : '#C6C5C5',
-        nameTopic : '',
         snap : 'center',
-        photo : '',
+        photo : user,
         video : '',
-        hasVideo : false
+        hasVideo : false,
+        nameTopic : 'MinhasInformacoes'
     };
-    componentDidMount = () =>{
-        this.setState({
-            nameTopic : 'MinhasInformacoes',
-        })
-    }
 
     onScrollColor = e => {
         let position = e.nativeEvent.contentOffset.x
@@ -55,13 +49,6 @@ export default class TelaPrincipal extends React.Component{
                 nameTopic : 'MeuVideo'
             })
         }
-    }
-
-    snap = () =>{
-        console.log('snapou')
-        this.setState({
-            snap : 'end'
-        })
     }
 
     // AskPermissionCamera = async () =>{
@@ -97,7 +84,7 @@ export default class TelaPrincipal extends React.Component{
             cropping: true
           }).then(image => {
             this.setState({
-                photo : image.path
+                photo : {uri : image.path}
             });
           });
     }
@@ -115,13 +102,13 @@ export default class TelaPrincipal extends React.Component{
 
 
     render(){
-        const {colorIcon, colorFont, nameTopic, snap, photo, video, hasVideo} = this.state
+        const {colorIcon, colorFont, nameTopic, photo, video, hasVideo} = this.state
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
                 <TouchableOpacity onPress={this.useFromLibrary}>
-                <Image source={{uri : photo}} style={styles.photo}/>
+                <Image source={photo} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.reverence}>Olá User!</Text>
@@ -130,13 +117,32 @@ export default class TelaPrincipal extends React.Component{
             </View>
             
 
-
             <View style={styles.optionsNavigation}>
                 {nameTopic == 'MinhasInformacoes' && (
                     <>
-                        <Topic icon={infos} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
-                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
-                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic 
+                            icon={infos} 
+                            style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                            text={'Minhas informações'} 
+                            backgroundText={colorFont} 
+                            size={36} 
+                            onPress={this.snap}
+                        />
+                        <Topic 
+                            icon={pencil} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Minha mensagem'} 
+                            backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.snap}
+                        />
+                        <Topic 
+                            icon={play} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Meu vídeo'} backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.snap}
+                        />
                     </>
                 )}
                 {nameTopic === 'MinhaMensagem' &&(
@@ -161,11 +167,10 @@ export default class TelaPrincipal extends React.Component{
             <ScrollView 
                 style={styles.options} 
                 horizontal={true} 
-                onScroll={e=> this.onScrollColor(e)} 
-                snapToInterval={324} 
-                decelerationRate={1.0}
-                snapToStart = {snap}
-                snapToInterval={324}
+                pagingEnabled={true}
+                invertStickyHeaders={false}
+                keyboardDismissMode={'on-drag'}  
+                     scrollToOverflowEnabled={true}
             >
                <MinhasInformacoes/>
                <MinhaMensagem/>
@@ -213,6 +218,6 @@ const styles = StyleSheet.create({
    options : {
        width : width,
        alignSelf : 'center'
-   }
+   },
 })
 

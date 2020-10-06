@@ -17,20 +17,17 @@ const height = Dimensions.get('window').height;
 export default class Login extends React.Component {
 
     click = () =>{
-        console.log('click')
+        const { navigation : {navigate},} = this.props
+        navigate('TelaPrincipal')
     }
-
-    //ARRUMAR DEPOIS
     render() {
         return (
-            
-         
                 <View style={styles.container}>
                         <Image style={styles.logo} source={logo} height={80} width={100} />
-                        <OutlinedTextField label='E-mail' baseColor={'#1D6F40'} />
-                        <OutlinedTextField label='Senha' baseColor={'#1D6F40'} />
+                        <OutlinedTextField label='E-mail' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
+                        <OutlinedTextField label='Senha' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}}/>
                         <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
-                    <MainButton text='Entrar na minha conta' bgColor={'#009640'} textColor='white' onPress={() =>{console.log('Login')}}/>
+                    <MainButton text='Entrar na minha conta' bgColor={'#009640'} textColor='white' onPress={this.click}/>
                 </View>
         )
     }
@@ -44,6 +41,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignSelf : 'center',
+        backgroundColor: '#ECECEC'
     },
     logo : {
         alignSelf : 'center'

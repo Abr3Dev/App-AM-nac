@@ -47,7 +47,7 @@ export default class Cadastro extends React.Component {
         const { nome, cpf, email, dataNasc, sexo, senha } = this.state
         return (
             <ScrollView style={{ backgroundColor: '#ECECEC' }}>
-                <Header text={'Cadastro'} />
+                {/* <Header text={'Cadastro'} /> */}
                 <View style={styles.containerTitle}>
                     <Text style={styles.titles}>Seja bem vindo!</Text>
                     <Text style={styles.subtitle}>Cadastre-se e envie uma mensagem!</Text>
@@ -58,7 +58,6 @@ export default class Cadastro extends React.Component {
                     inputContainerStyle={{backgroundColor : 'white'}}
                     label='Nome completo' 
                     baseColor={'#1D6F40'} 
-                    
                 />
                 <OutlinedTextField 
                     inputContainerStyle={{backgroundColor : 'white'}}

@@ -7,7 +7,7 @@ import OptionNav from './components/OptionNav';
 import Carousel from './screens/Carousel';
 import DuvidasFrequentes from './screens/DuvidasFrequentes';
 import Cadastro from './screens/Cadastro';
-import TelaPrincipal from './screens/principal';
+import TelaPrincipal from './screens/telaPrincipal';
 import Topic from './components/Topic';
 import MinhasInformacoes from './screens/MinhasInformacoes';
 import Title from './components/Title';

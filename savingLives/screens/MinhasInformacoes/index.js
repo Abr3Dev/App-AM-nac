@@ -4,7 +4,12 @@ import Input from '../../components/Input';
 import DatePicker from 'react-native-datepicker';
 import { Picker } from '@react-native-community/picker';
 import MainButton from '../../components/MainButton';
-import Title from '../../components/Title'
+import Title from '../../components/Title';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+} from 'react-native-material-textfield';
 
 
 const width = Dimensions.get('screen').width / 100 * 90
@@ -16,72 +21,31 @@ export default class MinhasInformacoes extends React.Component {
             <View>
                 <Title title={"Minhas informações"} />
                 <View style={styles.container}>
-                    <Input
-                        placeholder="Nome"
-                        borderColor='#018738'
-                        label={'Digite seu nome: '}
-                        // onKeyPress={this.onPressNome}
-                        key={'nome'}
-                    />
-
-                    <Input
-                        placeholder="E-mail"
-                        borderColor='#018738'
-                        label={'Digite seu E-mail: '}
-                        onKeyPress={this.onPressEmail}
-                    />
-
-                    <View style={styles.smallInputs}>
-
-                        {/* Trocar depois, para o type select */}
-                        <View style={styles.containerInput}>
-                            <Text style={styles.label}>Data de nascimento:</Text>
-                            <DatePicker
-                                style={styles.date}
-                                mode="date"
-                                placeholder="data de nascimento"
-                                format="DD-MM-YYYY"
-                                minDate="05-01-1940"
-                                maxDate={"05-01-1940"}
-                                date={"05-01-1940"}
-                                confirmBtnText="Confirmar"
-                                cancelBtnText="Cancel"
-                                // onDateChange={this.selectDate}
-                                customStyles={{
-                                    dateIcon: {
-                                        display: 'none'
-                                    },
-                                    dateInput: {
-                                        borderRadius: 5,
-                                        borderWidth: 1,
-                                        backgroundColor: '#FFFFFF',
-                                        borderColor: '#018738',
-                                        height: 35,
-                                        width: 100,
-                                    },
-                                }}
-                            />
-                        </View>
-                        <View style={styles.containerInput}>
-                            <Text style={styles.label}>Sexo:</Text>
-                            {/* Trocar isso depois, esse componente está muito ruim */}
-                            <Picker
-                                selectedValue={"sexo"} style={styles.picker}
-                                
-                            // onValueChange={this.onPressSexo}
-                            >
-                                <Picker.Item label="Masculino" value="Masculino" />
-                                <Picker.Item label="Feminino" value="Feminino" />
-                                <Picker.Item label="Outro" value="Outro" />
-                            </Picker>
-                        </View>
-                    </View>
-                    <Input
-                        placeholder="Senha"
-                        borderColor='#018738'
-                        label={'Digite sua senha: '}
-                    // onKeyPress={this.onPressSenha}
-                    />
+                <OutlinedTextField
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='Nome' 
+                    baseColor={'#1D6F40'} 
+                />
+                <OutlinedTextField
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='E-mail' 
+                    baseColor={'#1D6F40'} 
+                />
+                <OutlinedTextField
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='Data de nascimento' 
+                    baseColor={'#1D6F40'} 
+                />
+                <OutlinedTextField
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='Sexo' 
+                    baseColor={'#1D6F40'} 
+                />
+                <OutlinedTextField
+                    inputContainerStyle={{backgroundColor : 'white'}}
+                    label='Senha' 
+                    baseColor={'#1D6F40'} 
+                />
                     <MainButton text={'Salvar informações'} bgColor={'#009640'} textColor={'white'}/>
 
                 </View>
@@ -101,7 +65,7 @@ const styles = StyleSheet.create({
         width: width,
         alignSelf: 'center',
         flexDirection: 'column',
-        height: 400,
+        height: 450,
         justifyContent: 'space-between',
     },
     picker: {
@@ -116,5 +80,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 6
     },
-
 })

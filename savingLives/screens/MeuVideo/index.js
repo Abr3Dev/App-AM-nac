@@ -17,10 +17,11 @@ export default function MeuVideo({onPress, video, hasVideo, onDelete}){
         <View style={styles.container}>
             <Title title={"Meu vídeo"} />
             <TouchableOpacity>
-            <Video source =
-                {{uri : video}}
+            <Video 
+                source = {{uri : video}}
                 style={styles.video}
                 controls={true}
+                pictureInPicture={true}
             />
             </TouchableOpacity>
             
@@ -36,9 +37,7 @@ export default function MeuVideo({onPress, video, hasVideo, onDelete}){
                     <EditButton colorButton={'#0389FF'} text='Adionar vídeo' icon={upload}/>
                     </TouchableOpacity>
                 )}
-              
             </View>
-
             <MainButton bgColor={"#009640"} text={"Salvar informações"} textColor={"white"}/>
         </View>
     )
@@ -50,8 +49,9 @@ const styles = StyleSheet.create({
     },
     video : {
         height : 100,
-        width : 300,
-        flex : 1
+        width : width,
+        flex : 1,
+        alignSelf : 'center'
     },
     options : {
         flexDirection : 'row',

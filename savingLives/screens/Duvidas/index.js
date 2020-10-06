@@ -7,51 +7,48 @@ import { faEnvelopeOpenText as afterMessage } from '@fortawesome/free-solid-svg-
 import { faFileVideo as video } from '@fortawesome/free-solid-svg-icons';
 import { faComments as howWork } from '@fortawesome/free-solid-svg-icons';
 import HeaderArrow from '../../components/HeaderArrow';
+import Header from '../../components/Header';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default function Duvidas({ }) {
     return (
         <View style={styles.container}>
-            <HeaderArrow text={'Dúvidas'} marginLeft={-200}/>
+            <Header text={'Dúvidas'}/>
             <Title title={"Dúvidas"} />
             <View style={styles.content}>
 
                 <View style={styles.line}>
                     <Topic
+                        style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                        text={'Minhas informações'} 
+                        backgroundText={'black'} 
                         icon={about}
-                        background={'#009640'}
-                        text={'Minhas informações'}
-                        backgroundText={'black'}
                         size={36}
-                        style={styles.icon}
                     />
                     <Topic
                         icon={afterMessage}
-                        background={'#009640'}
-                        text={'Minhas informações'}
+                        style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                        text={'Minhas informações'}                       
                         backgroundText={'black'}
                         size={36}
-                        style={styles.icon}
+                      
                     />
                 </View>
                 <View style={styles.line}>
                 <Topic
                     icon={video}
-                    background={'#009640'}
-                    text={'Minhas informações'}
+                    style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                    text={'Minhas informações'} 
                     backgroundText={'black'}
                     size={36}
-                    style={styles.icon}
                 />
                 <Topic
                     icon={howWork}
-                    background={'#009640'}
-                    text={'Minhas informações'}
+                    style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                    text={'Minhas informações'} 
                     backgroundText={'black'}
-                    size={36}
-                    style={styles.icon}
-                
+                    size={36}                
                 />
                 </View>
             </View>

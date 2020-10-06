@@ -6,15 +6,7 @@ import MainButton from '../../MainButton';
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('window').height
 
-function LandingWarn(){
-
-    const handleChangeSub = () =>{
-        
-    }
-
-    const handleChangeLogin = () =>{
-        
-    }
+function LandingWarn({navigate, onPressSub, onPressLogin}){
 
     return (
         <View style={{flex : 1}}>
@@ -22,9 +14,9 @@ function LandingWarn(){
        <View style={styles.container}>
            <Text style={styles.mainText}>AVISE SUA FAMILIA</Text>
            <Text style={styles.description}>Esse é o passo mais importante pois de acordo com a legislação somente ela poderá autorizar a doação.</Text>
-           <MainButton text='Cadastre-se' bgColor='#009640' textColor='white' onPress={handleChangeSub}/>
-           <Text>Ou</Text>
-           <MainButton text='Faça seu Login' bgColor='#009640' textColor='white' onPress={handleChangeLogin}/>
+           <MainButton text='Cadastre-se' bgColor='#009640' textColor='white' onPress={onPressSub}/>
+           <Text style={styles.description}>Ou</Text>
+           <MainButton text='Faça seu Login' bgColor='#009640' textColor='white' onPress={onPressLogin}/>
         </View>
        </ImageBackground>
         </View>

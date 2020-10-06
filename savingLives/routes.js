@@ -7,7 +7,7 @@ import { faInfo as info } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt as logout } from '@fortawesome/free-solid-svg-icons';
 import Login from './screens/login';
 import Duvidas from './screens/Duvidas/index';
-import TelaPrincipal from './screens/principal';
+import TelaPrincipal from './screens/telaPrincipal';
 import VideoScreen from './screens/VideoScreen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
@@ -68,6 +68,7 @@ const UserScreens = createStackNavigator(
     }
 );
 
+
 const VideoScreens = createStackNavigator(
     {VideoScreen},
     {
@@ -82,9 +83,9 @@ const VideoScreens = createStackNavigator(
 
 
 const QuestionScreens = createStackNavigator(
-    {Login},
+    {Duvidas},
     {
-       initialRouteName : 'Login',
+       initialRouteName : 'Duvidas',
        navigationOptions : {
            tabBarIcon: getTabBarIcon(info),
            tabBarLabel: 'Informações',
@@ -119,4 +120,25 @@ const TabNavigator = createBottomTabNavigator(
     }
 );
 
-export default createAppContainer(TabNavigator);
+const stackNavigator = createStackNavigator(
+    {
+        Carousel : {
+            screen : Carousel
+        },
+        Cadastro : {
+            screen : Cadastro
+        },
+        Login : {
+            screen : Login
+        },
+        TabNavigator : {
+            screen : TabNavigator
+        }
+    },
+    {
+        initialRouteName : 'Carousel',
+        headerMode : false
+    }
+)
+
+export default createAppContainer(stackNavigator);
