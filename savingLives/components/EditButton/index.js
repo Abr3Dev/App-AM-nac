@@ -4,9 +4,9 @@ import {View, Text, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-export default function EditButton({icon, text, colorButton, onClick}){
+export default function EditButton({icon, text, colorButton, onClick, disabled}){
     return(
-        <TouchableOpacity onPress={onClick} style={[styles.container, {backgroundColor : colorButton}]}>
+        <TouchableOpacity onPress={onClick} style={[styles.container, {backgroundColor : colorButton}]} disabled={disabled}>
             
                 <Text style={styles.text}>{text}</Text>
                 <FontAwesomeIcon icon={icon} color='white' size={24}/>
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         justifyContent : 'space-around',
         alignItems : 'center',
         padding : 8,
+        width : 130
     },
     text : {
         marginBottom : 4,

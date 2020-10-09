@@ -11,7 +11,7 @@ export default class DuvidasFrequentes extends React.Component{
     click = () =>{
         const { navigation : {navigate},} = this.props
         navigate('Duvidas')
-        console.log('Entou aqui')
+
     }
     
     render(){

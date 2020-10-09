@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, Animated } from 'react-native'
+import { View, Text, StyleSheet, Dimensions,} from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronCircleUp as up } from '@fortawesome/free-solid-svg-icons';
 import { faChevronCircleDown as down } from '@fortawesome/free-solid-svg-icons';
@@ -30,8 +30,6 @@ class LinkBar extends React.Component{
     };
 
     render(){
-
-        
 
         const { title, content, style } = this.props;
         const {styleTopic, icon} = this.state;

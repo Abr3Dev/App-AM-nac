@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Image, Text, ActivityIndicator, Dimensions, PermissionsAndroid, TouchableOpacity, ScrollView } from 'react-native';
-import logo from '../..//assets/Logo.png';
+import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import {faPlay as play} from '@fortawesome/free-solid-svg-icons';
 import {faInfo as infos} from '@fortawesome/free-solid-svg-icons';
 import {faPencilAlt as pencil} from '@fortawesome/free-solid-svg-icons';
@@ -12,10 +11,7 @@ import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
 import user from '../..//assets/defaults/user.png';
 
-
 const width = Dimensions.get('screen').width / 100 * 90
-
-
 
 export default class TelaPrincipal extends React.Component{
 
@@ -88,17 +84,7 @@ export default class TelaPrincipal extends React.Component{
             });
           });
     }
-    chooseVideo = () =>{
-        ImagePicker.openPicker({
-            mediaType: 'video',
-          }).then(video => {
-            
-            this.setState({
-                video : video.path,
-                hasVideo : true
-            })
-          });
-    }
+
 
 
     render(){

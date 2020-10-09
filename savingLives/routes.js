@@ -10,11 +10,12 @@ import React from 'react';
 import Cadastro from './screens/Cadastro';
 import Carousel from './screens/Carousel';
 import Logout from './screens/Logout';
-import Login from './screens/login';
+import Login from './screens/Login';
 import Duvidas from './screens/Duvidas/index';
-import TelaPrincipal from './screens/telaPrincipal';
-import VideoScreen from './screens/VideoScreen';
+import TelaPrincipal from './screens/TelaPrincipal';
 import DuvidasFrequentes from './screens/DuvidasFrequentes';
+import MeuVideo from './screens/MeuVideo';
+import VideoScreen from './screens/VideoScreen';
 
 const getTabBarIcon = (icon) => ({tintColor}) =>(
     <FontAwesomeIcon
@@ -135,9 +136,16 @@ const stackNavigator = createStackNavigator(
         TabNavigator : {
             screen : TabNavigator
         },
-        DuvidasFrequentes :{
+        DuvidasFrequentes : {
             screen : DuvidasFrequentes
-        }
+        },
+        Logout : {
+            screen : Logout
+        },
+        MeuVideo : {
+            screen : MeuVideo
+        },
+
     },
     {
         initialRouteName : 'Carousel',
