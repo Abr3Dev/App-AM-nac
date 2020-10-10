@@ -14,6 +14,14 @@ import logo from '../../assets/Logo.png';
 const height = Dimensions.get('screen').height;
 
 export default class RedefinirSenha extends React.Component {
+
+  handleSendEmail = () =>{
+    const {
+      navigation : {navigate},
+  } = this.props;
+  navigate('RedefinirSenhaCodigo')
+  }
+
   render() {
     return (
       <>
@@ -50,6 +58,7 @@ export default class RedefinirSenha extends React.Component {
               text={'Enviar'}
               bgColor={'#009640'}
               textColor={'white'}
+              onPress={this.handleSendEmail}
             />
           </View>
         </ScrollView>

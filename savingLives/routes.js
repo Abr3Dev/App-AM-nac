@@ -16,6 +16,8 @@ import TelaPrincipal from './screens/TelaPrincipal';
 import DuvidasFrequentes from './screens/DuvidasFrequentes';
 import MeuVideo from './screens/MeuVideo';
 import VideoScreen from './screens/VideoScreen';
+import RedefinirSenha from './screens/RedefinirSenha';
+import RedefinirSenhaCodigo from './screens/RedefinirSenhaCodigo';
 
 const getTabBarIcon = (icon) => ({tintColor}) =>(
     <FontAwesomeIcon
@@ -103,14 +105,12 @@ const TabNavigator = createBottomTabNavigator(
         VideoScreen : VideoScreens,
         Login : QuestionScreens,
         Logout : LogoutScreens,
-        
     },
     {
         initialRouteName : 'TelaPrincipal',
         tabBarOptions : {
             style :{
-                backgroundColor : '#FFFFFF',
-                
+                backgroundColor : '#FFFFFF',  
             },
             showLabel : true,
             showIcon : true,
@@ -145,6 +145,13 @@ const stackNavigator = createStackNavigator(
         MeuVideo : {
             screen : MeuVideo
         },
+
+        RedefinirSenha : {
+            screen : RedefinirSenha
+        },
+        RedefinirSenhaCodigo : {
+            screen : RedefinirSenhaCodigo
+        }
 
     },
     {

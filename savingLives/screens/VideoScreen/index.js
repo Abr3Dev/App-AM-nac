@@ -6,6 +6,8 @@ import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
 import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
 import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
+import Video, { FilterType } from 'react-native-video';
+// import user from '../../assets/defaults/user.png';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -19,6 +21,16 @@ export default class VideoScreen extends React.Component {
 
     componentDidMount = () =>{
         //Chamar o vídeo através do ID passado para cá
+
+        // ImagePicker.openPicker({
+        //     mediaType: 'video',
+        //   }).then(video => {
+            
+        //     this.setState({
+        //         video : video.path,
+        //         hasVideo : true
+        //     })
+        //   });
     }
 
     chooseVideo = () =>{
@@ -33,6 +45,13 @@ export default class VideoScreen extends React.Component {
           });
     }
 
+    handleRemoveVideo = () =>{
+        this.setState({
+            video : '',
+            hasVideo : false
+        })
+    }
+
 
     render() {
         const {video, hasVideo} = this.state
@@ -41,13 +60,20 @@ export default class VideoScreen extends React.Component {
             <Header text='Meu Vídeo' />
             <View style={styles.container}>
                 <View style={styles.video}>
-
+                    <Video
+                        source={{ uri: video }}
+                        style={styles.videoplay}
+                        controls={true}
+                        fullscreenOrientation={'landscape'}
+                        maxBitRate={15000000}
+                        resizeMode={'cover'}                
+                        />
                 </View>
                 <View style={styles.options}>
                     
                 {hasVideo &&(
                     <>
-                    <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close} onClick={() =>{}} disabled={false}/>
+                    <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close} onClick={this.handleRemoveVideo} disabled={false}/>
                     <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload} onClick={this.chooseVideo}/>
                     </>
                 )}
@@ -76,6 +102,14 @@ const styles = StyleSheet.create({
         marginTop: 24,
         backgroundColor: 'black',
         alignSelf: 'center'
+    },
+    videoplay :{
+        width : width,
+        height : 300,
+        alignSelf : 'flex-end',
+        alignItems : 'center',
+        justifyContent : 'center',
+        backgroundColor : 'blue'
     },
     options : {
         marginTop : 36,

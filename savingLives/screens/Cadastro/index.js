@@ -46,7 +46,7 @@ export default class Cadastro extends React.Component {
     render() {
         const { nome, cpf, email, dataNasc, sexo, senha } = this.state
         return (
-            <ScrollView style={{ backgroundColor: '#ECECEC' }}>
+            <ScrollView style={{ backgroundColor: '#ECECEC' }} keyboardDismissMode={'on-drag'} >
                 {/* <Header text={'Cadastro'} /> */}
                 <View style={styles.containerTitle}>
                     <Text style={styles.titles}>Seja bem vindo!</Text>

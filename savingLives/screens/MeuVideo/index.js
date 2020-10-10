@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import { View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import MainButton from '../../components/MainButton';
@@ -24,13 +23,9 @@ export default class MeuVideo extends React.Component {
         //Aqui vai pesquisar no banco o Id recebido do usuário. Caso não tnha um vídeo, retorna uma View
     }
 
-    addVideo = () => {
-        const { navigation : {navigate}} = this.props
-        navigate('VideoScreens')
-    }
-
     render() {
         const { hasVideo, paused, video } = this.state
+        const {onPress} = this.props
         return (
             <View style={styles.container}>
                 <Title title={"Meu vídeo"} />
@@ -60,7 +55,7 @@ export default class MeuVideo extends React.Component {
                 )}
                 <View style={styles.noVideo}>
                     <Text style={styles.TextNoVideo}>Você não possui vídeo!</Text>
-                    <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={this.addVideo}/>
+                    <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={onPress}/>
                 </View>
 
             </View>

@@ -26,8 +26,15 @@ export default class TelaPrincipal extends React.Component{
         photo : user,
         video : '',
         hasVideo : false,
-        nameTopic : 'MinhasInformacoes'
+        nameTopic : 'MinhasInformacoes',
     };
+
+    handleAddVideo = () =>{
+        const {
+            navigation : {navigate},
+        } = this.props;
+        navigate('VideoScreen')
+    }
 
     onScrollColor = e => {
         let position = e.nativeEvent.contentOffset.x
@@ -154,13 +161,11 @@ export default class TelaPrincipal extends React.Component{
                 style={styles.options} 
                 horizontal={true} 
                 pagingEnabled={true}
-                invertStickyHeaders={false}
                 keyboardDismissMode={'on-drag'}  
-                     scrollToOverflowEnabled={true}
             >
                <MinhasInformacoes/>
                <MinhaMensagem/>
-               <MeuVideo onPress={this.chooseVideo} video={video} hasVideo={hasVideo}/>
+               <MeuVideo onPress={this.chooseVideo} video={video} hasVideo={hasVideo} onPress={this.handleAddVideo}/>
             </ScrollView>
             </ScrollView>
 
