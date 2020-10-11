@@ -11,7 +11,14 @@ import HeaderArrow from '../../components/HeaderArrow';
 import Input from '../../components/Input';
 import MainButton from '../../components/MainButton';
 import logo from '../../assets/Logo.png';
+import {
+  TextField,
+  FilledTextField,
+  OutlinedTextField,
+} from 'react-native-material-textfield';
+import Header from '../../components/Header';
 const height = Dimensions.get('screen').height;
+const width = Dimensions.get('screen').width / 100 * 90;
 
 export default class RedefinirSenha extends React.Component {
 
@@ -22,36 +29,40 @@ export default class RedefinirSenha extends React.Component {
   navigate('RedefinirSenhaCodigo')
   }
 
+  goBack = () =>{
+    const {
+      navigation : {navigate},
+    } = this.props
+    navigate('Login')
+  }
+
   render() {
     return (
       <>
-        <HeaderArrow text={'Redefinição de senha'} marginLeft={-120} />
-        <ScrollView>
+        <Header isnavigable={true} onPress={this.goBack} text='Redefinição de senha'/>
+        <ScrollView keyboardDismissMode={'on-drag'}>
           <View style={styles.container}>
             <Image style={styles.logo} source={logo} height={40} width={55} />
             <Text style={styles.p}>
               Informe os dados a seguir para confirmar que é você. Em seguida,
               irá ser enviado um e-mail para o próximo passo de redefinição
             </Text>
-            <Input
-              style={styles.form}
-              placeholder="Fulano de tal"
-              borderColor="#018738"
-              label={'Nome: '}
-              // onKeyPress={this.onPressNome}
-              key={'nome'}
+            <OutlinedTextField 
+              label='Nome' 
+              baseColor={'#1D6F40'} 
+              inputContainerStyle={{ backgroundColor: 'white' }} 
             />
-            <Input
-              style={styles.form}
-              placeholder="FulanoDeTal@exemplo.com"
-              borderColor="#018738"
-              label={'Seu E-mail: '}
+            <OutlinedTextField 
+              label='E-mail' 
+              baseColor={'#1D6F40'} 
+              inputContainerStyle={{ backgroundColor: 'white' }} 
+              keyboardType='email-address'
             />
-            <Input
-              style={styles.form}
-              placeholder="012.345.678-90"
-              borderColor="#018738"
-              label={'Seu CPF: '}
+            <OutlinedTextField 
+              label='CPF' 
+              baseColor={'#1D6F40'} 
+              inputContainerStyle={{ backgroundColor: 'white' }} 
+              keyboardType='decimal-pad'
             />
             <MainButton
               style={styles.form}
@@ -71,6 +82,9 @@ const styles = StyleSheet.create({
   container: {
     height: 500,
     top: 10,
+    width : width,
+    alignSelf : 'center',
+    justifyContent : 'space-around'
   },
   p: {
     flexDirection: 'column',

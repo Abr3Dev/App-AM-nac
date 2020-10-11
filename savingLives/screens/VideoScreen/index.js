@@ -66,7 +66,7 @@ export default class VideoScreen extends React.Component {
                         controls={true}
                         fullscreenOrientation={'landscape'}
                         maxBitRate={15000000}
-                        resizeMode={'cover'}                
+                        resizeMode={'cover'}
                         />
                 </View>
                 <View style={styles.options}>
@@ -92,24 +92,24 @@ export default class VideoScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container : {
         width: width,
         alignSelf: 'center'
     },
-    video: {
+    video : {
         width: width,
         height: 300,
         marginTop: 24,
         backgroundColor: 'black',
         alignSelf: 'center'
     },
-    videoplay :{
+    videoplay : {
         width : width,
         height : 300,
         alignSelf : 'flex-end',
         alignItems : 'center',
         justifyContent : 'center',
-        backgroundColor : 'blue'
+
     },
     options : {
         marginTop : 36,

@@ -55,8 +55,8 @@ export default class MeuVideo extends React.Component {
                 )}
                 <View style={styles.noVideo}>
                     <Text style={styles.TextNoVideo}>Você não possui vídeo!</Text>
-                    <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={onPress}/>
                 </View>
+                <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={onPress}/>
 
             </View>
         )
@@ -68,14 +68,15 @@ const styles = StyleSheet.create({
         width: width,
     },
     video: {
-        height: 100,
-        width: width,
-        flex: 1,
+        width : width,
+        height : 300,
+        backgroundColor : 'blue',
         alignSelf: 'center'
     },
     noVideo: {
         width: width,
         height: 300,
+        backgroundColor : 'grey',
         flexDirection : 'column',
         justifyContent : 'space-around'
     },

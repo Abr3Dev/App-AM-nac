@@ -14,6 +14,7 @@ function Header({ text, sizeText, onPress, isnavigable }) {
                 <TouchableOpacity>
                 <FontAwesomeIcon icon={left} size={26} color={'white'}/>
                 </TouchableOpacity>
+                
                 <Image style={styles.logo} source={logo} height={40} width={55} />
             </View>
         </View>
