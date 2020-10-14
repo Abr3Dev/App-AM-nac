@@ -27,6 +27,7 @@ export default class TelaPrincipal extends React.Component{
         video : '',
         hasVideo : false,
         nameTopic : 'MinhasInformacoes',
+        snapToEnd : false
     };
 
     handleAddVideo = () =>{
@@ -38,20 +39,26 @@ export default class TelaPrincipal extends React.Component{
 
     onScrollColor = e => {
         let position = e.nativeEvent.contentOffset.x
-        if(position == 0){
+        console.log(position)
+        if(position <= 162){
             this.setState({
                 nameTopic : 'MinhasInformacoes',
-            })
-        }else if(position == 324){
-            
+            });
+        }else if(position >= 162 && position <= 486){  
             this.setState({
                 nameTopic : 'MinhaMensagem'
-            })
-        }else if(position == 648){
+            });
+        }else if(position >= 486 && position ){
             this.setState({
                 nameTopic : 'MeuVideo'
-            })
+            });
         }
+    }
+
+    onClickVideo = () =>{
+        this.setState({
+            snapToEnd : true
+        })
     }
 
     // AskPermissionCamera = async () =>{
@@ -95,7 +102,7 @@ export default class TelaPrincipal extends React.Component{
 
 
     render(){
-        const {colorIcon, colorFont, nameTopic, photo, video, hasVideo} = this.state
+        const {colorIcon, colorFont, nameTopic, photo, video, hasVideo, snapToEnd} = this.state
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
@@ -127,30 +134,72 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minha mensagem'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.snap}
+                            onPress={this.onClickVideo}
                         />
                         <Topic 
                             icon={play} 
                             style={{backgroundColor : colorIcon, width : 60, height : 60}} 
                             text={'Meu vídeo'} backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.snap}
+                            onPress={this.onClickVideo}
                         />
                     </>
                 )}
                 {nameTopic === 'MinhaMensagem' &&(
                     <>
-                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
-                        <Topic icon={pencil} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
-                        <Topic icon={play} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic 
+                            icon={infos} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Minhas informações'} 
+                            backgroundText={colorFont} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
+                        <Topic 
+                            icon={pencil} 
+                            style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                            text={'Minha mensagem'} 
+                            backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
+                        <Topic 
+                            icon={play} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Meu vídeo'} 
+                            backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
                     </>
                 )}
 
                 {nameTopic === 'MeuVideo' &&(
                     <>
-                        <Topic icon={infos} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minhas informações'} backgroundText={colorFont} size={36} onPress={this.snap}/>
-                        <Topic icon={pencil} style={{backgroundColor : colorIcon, width : 60, height : 60}} text={'Minha mensagem'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
-                        <Topic icon={play} style={{backgroundColor : '#009640', width : 60, height : 60 }} text={'Meu vídeo'} backgroundText={'#C6C5C5'} size={36} onPress={this.snap}/>
+                        <Topic 
+                            icon={infos} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Minhas informações'} 
+                            backgroundText={colorFont} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
+                        <Topic 
+                            icon={pencil} 
+                            style={{backgroundColor : colorIcon, width : 60, height : 60}} 
+                            text={'Minha mensagem'} 
+                            backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
+                        <Topic 
+                            icon={play} 
+                            style={{backgroundColor : '#009640', width : 60, height : 60 }} 
+                            text={'Meu vídeo'} 
+                            backgroundText={'#C6C5C5'} 
+                            size={36} 
+                            onPress={this.onClickVideo}
+                        />
                     </>
                 )}
                
@@ -161,7 +210,9 @@ export default class TelaPrincipal extends React.Component{
                 style={styles.options} 
                 horizontal={true} 
                 pagingEnabled={true}
-                keyboardDismissMode={'on-drag'}  
+                keyboardDismissMode={'on-drag'} 
+                onScroll={this.onScrollColor} 
+                snapToEnd={snapToEnd}
             >
                <MinhasInformacoes/>
                <MinhaMensagem/>

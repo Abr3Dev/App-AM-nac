@@ -4,8 +4,6 @@ import Input from '../../components/Input';
 import Title from '../../components/Title';
 import MainButton from '../../components/MainButton';
 import {
-    TextField,
-    FilledTextField,
     OutlinedTextField,
 } from 'react-native-material-textfield';
 
@@ -50,10 +48,8 @@ export default class MinhaMensagem extends React.Component {
                     <MainButton bgColor={'#009640'} text={"Salvar informações"} textColor={"white"}/>
                 </View>
             </View>
-
         )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -66,12 +62,12 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 3,
+            height: 1,
         },
         shadowOpacity: 0.29,
-        shadowRadius: 4.65,
+        shadowRadius: 2,
         marginBottom : 16,
-        elevation: 7,
+        elevation: 1,
         borderRadius: 5,
         width : width,
         alignSelf : "center"
