@@ -3,9 +3,9 @@ import {View, Text, Dimensions, StyleSheet, Button, TouchableOpacity} from 'reac
 
 
 //MUDAR PARA UM BOTÃO CERTO COM EVENTO DE CLICK
-function MainButton({text, bgColor, textColor, onPress}){
+function MainButton({text, bgColor, textColor, onPress, disabled}){
     return (
-        <TouchableOpacity style={[styles.container, {backgroundColor : bgColor, borderColor : bgColor}]} onPress={onPress}>
+        <TouchableOpacity disabled={disabled} style={[styles.container, {backgroundColor : bgColor, borderColor : bgColor}]} onPress={onPress}>
             <Text style={{color : textColor, textAlign : 'center'}}>{text}</Text>
             
         </TouchableOpacity>

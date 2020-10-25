@@ -6,6 +6,7 @@ import MainButton from '../../components/MainButton';
 import {
     OutlinedTextField,
 } from 'react-native-material-textfield';
+import api from '../../api/api'
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -14,24 +15,57 @@ export default class MinhaMensagem extends React.Component {
     //Aqui nós vamos dar uma call na API e adcionar nos inputs os familiares a serem enviados a mensagem. Caso não tenha, retorna apenas um
     //Esses dois é apenas um exemplo de como vai ser
     state = {
-        emails : [  <Input borderColor="#009640" label={"E-mail:"} style={styles.input}/>, 
-                    <Input borderColor="#009640" label={"E-mail:"} style={styles.input}/>
-                ]
+        message : '',
+        id : 0,
+        isChanged : false,
+        disabledColor : '#C6C5C5',
+        error : false,
     }
 
-    addEmail = () =>{
-        return(
-            <Input borderColor="#009640" label={"E-mail:"} style={styles.input}/>
-        )
+    componentDidMount = () =>{
+        const {contentId} = this.props
+        this.setState({
+            id : contentId
+        });
+        api.get(`doandovidas/content/${contentId}`)
+        .then(resp =>{
+            this.setState({
+                message : resp.data.data.message
+            });
+        }).catch(err =>{
+            // console.log(err.response.data)
+            console.log(err.response.data)
+        })
+    }
+    handleSubmit = () =>{
+        api.put(`doandovidas/content/update/${this.state.id}`, {
+            "message" : this.state.message
+        }).then(resp =>{
+            
+            this.setState({
+                isChanged : false,
+                disabledColor : '#C6C5C5'
+            })
+        }).catch(err =>{
+            console.log(err.response.data)
+        })
     }
 
     render() {
+        const {message, disabledColor, isChanged} = this.state
        
         return (
             <View>
                 <Title title={"Minha mensagem"} />
                 <View style={styles.container}>
-                    <TextInput multiline={true} numberOfLines={7} style={styles.textArea} scrollEnabled={true} />
+                    <TextInput 
+                        multiline={true} 
+                        numberOfLines={7} 
+                        style={styles.textArea} 
+                        scrollEnabled={true} 
+                        value={message}
+                        onChangeText={(value) =>{this.setState({message : value, disabledColor : '#009640', isChanged : false })}}
+                    />
                     <Text style={styles.for}>
                         Será enviado para:
                     </Text>
@@ -45,7 +79,7 @@ export default class MinhaMensagem extends React.Component {
                         <Topic background={"#0389FF"} icon={plus} width={44} height={44} onPress={this.addEmail}/>
                     </View> */}
 
-                    <MainButton bgColor={'#009640'} text={"Salvar informações"} textColor={"white"}/>
+                    <MainButton bgColor={disabledColor} text={"Salvar informações"} textColor={"white"} disabled={isChanged} onPress={this.handleSubmit}/>
                 </View>
             </View>
         )

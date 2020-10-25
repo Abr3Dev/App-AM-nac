@@ -37,7 +37,7 @@ export default class VideoScreen extends React.Component {
         ImagePicker.openPicker({
             mediaType: 'video',
           }).then(video => {
-            
+            console.log(video.exif)
             this.setState({
                 video : video.path,
                 hasVideo : true

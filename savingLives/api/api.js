@@ -1,21 +1,26 @@
+import axios from 'axios';
 
-
-const Users = user =>{
-    const {
-        name,
-        picture
-    } = user;
-
-    return {
-        id : 1,
-        name : name.first,
-        picture : picture.large
-    };
-};
-
-export const fetchUser = async () =>{
-    const resp = await fetch('https://randomuser.me/api/');
-    const userData = await resp.json();
-
-    return  Users(userData.results[0]);
+const api = axios.create({
+    baseURL : 'http://192.168.15.5:8083/api',
+    headers: {
+        'Content-Type':'application/json; charset=UTF-8',
 }
+
+});
+
+export default api;
+
+// export const fetchUserLogin = async (login, senha) =>{
+//     return axios.get(`http://localhost:8083/api/doandovidas/user/123/123`);
+//     // const resp = await fetch(`http://localhost:8083/api/doandovidas/user/${login}/${senha}`);
+//     // const results = await resp.json();
+//     // console.log(results);
+// } 
+
+// export const fetchUserSub = async (nome, cpf, email, dNasc, sexo, senha) =>{
+//     await fetch(`http://192.168.15.5:8083/api/doandovidas/user/123/123`).then(resp =>{
+//         console.log(resp);
+//     })
+// }
+
+// http://localhost:8081/api/doandovidas/register   192.168.15.5

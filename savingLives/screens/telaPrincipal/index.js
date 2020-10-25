@@ -9,26 +9,59 @@ import MinhasInformacoes from '../MinhasInformacoes';
 import MinhaMensagem from '../MinhaMensagem';
 import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
-import user from '../..//assets/defaults/user.png';
+import photoUser from '../..//assets/defaults/user.png';
+import api from '../../api/api';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default class TelaPrincipal extends React.Component{
 
     state = {
-        id : 0,
-        user : '',
+        user : {
+            id : 0,
+            avatar : '',
+            name : '',
+            email : '',
+            cpf : '',
+            password : '',
+            birthDate : '',
+            gender : '',
+            contentId : 0,
+        },
         loading: true,
         error : false,
         colorIcon : '#C6C5C5',
-        colorFont : '#C6C5C5',
-        snap : 'center',
-        photo : user,
+        colorFont : '#C6C5C5',      
         video : '',
         hasVideo : false,
         nameTopic : 'MinhasInformacoes',
-        snapToEnd : false
     };
+
+    
+    componentDidMount = () =>{
+
+        const {
+            navigation : {
+                state : {params}
+            },
+        } = this.props;
+
+        const {userData} = params;
+        
+        this.setState({
+            user : {
+                id : userData.id,
+                avatar : userData.avatar == null ? photoUser : userData.avatar,
+                name : userData.name,
+                email : userData.email,
+                cpf : userData.cpf,
+                password : userData.password,
+                birthDate : userData.birthDate,
+                gender : userData.gender,
+                contentId : userData.contentId,
+            }
+        });
+    }
 
     handleAddVideo = () =>{
         const {
@@ -39,7 +72,6 @@ export default class TelaPrincipal extends React.Component{
 
     onScrollColor = e => {
         let position = e.nativeEvent.contentOffset.x
-        console.log(position)
         if(position <= 162){
             this.setState({
                 nameTopic : 'MinhasInformacoes',
@@ -55,68 +87,76 @@ export default class TelaPrincipal extends React.Component{
         }
     }
 
-    onClickVideo = () =>{
-        this.setState({
-            snapToEnd : true
-        })
-    }
-
-    // AskPermissionCamera = async () =>{
-    //     try{
-    //         const granted = await PermissionsAndroid.request(
-    //             PermissionsAndroid.PERMISSIONS.CAMERA,
-    //             {
-    //                 title : 'Acesso à câmera',
-    //                 message : 'Você nos permite acessar sua câmera?',
-    //                 buttonPositive : 'Permitir',
-    //                 buttonNegative : 'Negar'
-                    
-    //             }
-    //         )
-    //         if(granted === PermissionsAndroid.RESULTS.GRANTED){
-    //             console.warn('Você deixou a gente acessar sua câmera!!!')
-    //         }else{
-    //             console.warn('Você não deixou a gente acessar à câmera')
-    //         }
-    //     }catch(e){
-    //         console.log(e)
-    //     }
-    // }
-
-    // HandlePermission = async () =>{
-    //     const granted = await this.AskPermissionCamera();
-    // }
-
     useFromLibrary = () =>{
         ImagePicker.openPicker({
             width: 300,
             height: 400,
-            cropping: true
+            cropping: true,
+            includeBase64 : true
           }).then(image => {
-            this.setState({
-                photo : {uri : image.path}
-            });
+
+            const {user : {id, name, email, cpf, password, birthDate, gender, contentId}} = this.state;
+
+            api.put(`doandovidas/user/${id}`,{
+                "avatar" : image.data,
+                "id": id,
+                "name": name,
+                "email": email,
+                "cpf": cpf,
+                "password": password,
+                "birthDate": birthDate,
+                "gender": gender,
+                "contentId" : contentId
+            }).then(resp =>{
+                
+                this.setState({
+                    user : {
+                        avatar : image.data,
+                        name : resp.data.data.name,
+                    }
+                });
+                
+            }).catch(err =>{
+                
+                console.log('ACABOU DANDO ERRO')
+                console.log(err.response.data);
+
+            })
           });
     }
-
-
-
+    //COLOCAR EM HELPERS
+     changeName = (name) =>{  
+         const newName = name.split(' ')[0];
+         return newName;
+     }
     render(){
-        const {colorIcon, colorFont, nameTopic, photo, video, hasVideo, snapToEnd} = this.state
+
+           const {
+            navigation : {
+                state : {params}
+            },
+        } = this.props;
+
+        const {userData} = params;
+
+        const {colorIcon, colorFont, nameTopic, video, hasVideo, user : {
+            avatar,
+            name
+        }} = this.state;
+
         return( 
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.useFromLibrary}>
-                <Image source={photo} style={styles.photo}/>
+                <TouchableOpacity onPress={this.useFromLibrary} onPressOut={console.log(avatar)}>
+                <Image source={avatar == null ? avatar : {uri : `data:image/gif;base64,${avatar}`}} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
-                    <Text style={styles.reverence}>Olá User!</Text>
+        <Text style={styles.reverence}>Olá {this.changeName(name)}!</Text>
                     <Text style={styles.textReverece}>Aqui você pode visualizar e editar seus dados!</Text>
                 </View>
             </View>
             
-
             <View style={styles.optionsNavigation}>
                 {nameTopic == 'MinhasInformacoes' && (
                     <>
@@ -126,7 +166,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minhas informações'} 
                             backgroundText={colorFont} 
                             size={36} 
-                            onPress={this.snap}
+                            onPress={() =>{}}
                         />
                         <Topic 
                             icon={pencil} 
@@ -134,14 +174,14 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minha mensagem'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                         <Topic 
                             icon={play} 
                             style={{backgroundColor : colorIcon, width : 60, height : 60}} 
                             text={'Meu vídeo'} backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                     </>
                 )}
@@ -153,7 +193,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minhas informações'} 
                             backgroundText={colorFont} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                         <Topic 
                             icon={pencil} 
@@ -161,7 +201,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minha mensagem'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                         <Topic 
                             icon={play} 
@@ -169,7 +209,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Meu vídeo'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                     </>
                 )}
@@ -182,7 +222,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minhas informações'} 
                             backgroundText={colorFont} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                         <Topic 
                             icon={pencil} 
@@ -190,7 +230,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Minha mensagem'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                         <Topic 
                             icon={play} 
@@ -198,7 +238,7 @@ export default class TelaPrincipal extends React.Component{
                             text={'Meu vídeo'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                            onPress={this.onClickVideo}
+                
                         />
                     </>
                 )}
@@ -211,12 +251,11 @@ export default class TelaPrincipal extends React.Component{
                 horizontal={true} 
                 pagingEnabled={true}
                 keyboardDismissMode={'on-drag'} 
-                onScroll={this.onScrollColor} 
-                snapToEnd={snapToEnd}
+                onScroll={this.onScrollColor}   
             >
-               <MinhasInformacoes/>
-               <MinhaMensagem/>
-               <MeuVideo onPress={this.chooseVideo} video={video} hasVideo={hasVideo} onPress={this.handleAddVideo}/>
+                <MinhasInformacoes user={userData}/>
+               <MinhaMensagem contentId={userData.contentId}/> 
+               <MeuVideo video={video} hasVideo={hasVideo} onPress={this.handleAddVideo}/>
             </ScrollView>
             </ScrollView>
 

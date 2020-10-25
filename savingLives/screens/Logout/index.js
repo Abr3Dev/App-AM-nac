@@ -9,6 +9,10 @@ export default class Logout extends React.Component{
         photo : user
     }
 
+    componentDidMount = () =>{
+        
+    }
+
     logout = () =>{
         const { navigation : {navigate},} = this.props
         navigate('Carousel')

@@ -31,16 +31,18 @@ export default class MeuVideo extends React.Component {
                 <Title title={"Meu vídeo"} />
 
                 {hasVideo && (
+                    
                     <>
                         <Video
-                            source={{ uri: video }}
+                            source={video  == null ? '' : { uri: video }}
                             style={styles.video}
                             controls={true}
                             pictureInPicture={true}
+                            
                         />
                         <View style={styles.options}>
                             <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close} />
-                            {hasVideo && (
+                            {hasVideo && console.log(video)(
                                 <TouchableOpacity>
                                     <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload} />
                                 </TouchableOpacity>
