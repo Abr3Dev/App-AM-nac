@@ -51,7 +51,7 @@ export default class TelaPrincipal extends React.Component{
         this.setState({
             user : {
                 id : userData.id,
-                avatar : userData.avatar == null ? photoUser : userData.avatar,
+                avatar : userData.avatar,
                 name : userData.name,
                 email : userData.email,
                 cpf : userData.cpf,
@@ -118,7 +118,7 @@ export default class TelaPrincipal extends React.Component{
                 
             }).catch(err =>{
                 
-                console.log('ACABOU DANDO ERRO')
+                console.log('erro na atualização de imagem')
                 console.log(err.response.data);
 
             })
@@ -148,8 +148,8 @@ export default class TelaPrincipal extends React.Component{
             <ScrollView style={{backgroundColor : '#ECECEC'}}>
            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.useFromLibrary} onPressOut={console.log(avatar)}>
-                <Image source={avatar == null ? avatar : {uri : `data:image/gif;base64,${avatar}`}} style={styles.photo}/>
+                <TouchableOpacity onPress={this.useFromLibrary}>
+                <Image source={avatar == null ? photoUser : {uri : `data:image/gif;base64,${avatar}`}} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
         <Text style={styles.reverence}>Olá {this.changeName(name)}!</Text>
@@ -181,7 +181,6 @@ export default class TelaPrincipal extends React.Component{
                             style={{backgroundColor : colorIcon, width : 60, height : 60}} 
                             text={'Meu vídeo'} backgroundText={'#C6C5C5'} 
                             size={36} 
-                
                         />
                     </>
                 )}
@@ -238,7 +237,6 @@ export default class TelaPrincipal extends React.Component{
                             text={'Meu vídeo'} 
                             backgroundText={'#C6C5C5'} 
                             size={36} 
-                
                         />
                     </>
                 )}
@@ -261,7 +259,6 @@ export default class TelaPrincipal extends React.Component{
 
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -301,4 +298,3 @@ const styles = StyleSheet.create({
        alignSelf : 'center'
    },
 })
-

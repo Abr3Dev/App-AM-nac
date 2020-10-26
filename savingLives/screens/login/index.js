@@ -19,8 +19,8 @@ const height = Dimensions.get('window').height / 100 * 90;
 export default class Login extends React.Component {
 
     state = {
-        email : '',
-        password : '',
+        email : 'joao01@hotmail.com',
+        password : '12345678',
         error : false,
         textError : ''
     }

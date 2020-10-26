@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, } from 'react-native';
 import MainButton from '../../components/MainButton';
 import Title from '../../components/Title';
-import {helpCpf} from '../../Helpers/index'
+import { helpCpf, formValidator } from '../../Helpers/index'
 import {
     TextField,
     FilledTextField,
@@ -18,47 +18,59 @@ const width = Dimensions.get('screen').width / 100 * 90
 //Fazer a chamada da API após o click no cadastrar. Tem que passar de uma validação. Será criada no helpers
 export default class Cadastro extends React.Component {
     state = {
-        name: 'João Pedro Albuquerque dos Santos',
-        cpf: '504.150.748-19',
-        email: 'joao01@hotmail.com',
-        birthDate: '2020-12-12', // mudar lógica para date
-        gender: 'Masculino',
-        password : '12345678',
-        errors : []
+            name: '',
+            cpf: '',
+            email: '',
+            birthDate: '', // mudar lógica para date
+            gender: '',
+            password: '',
+            errors: []
     }
-    keyCpf = (cpf) =>{
-        
-        let result = helpCpf(cpf);
+    // keyCpf = (cpf) => {
+
+    //     let result = helpCpf(cpf);
+    //     this.setState({
+    //         cpf: result
+    //     });
+    // }
+
+    handleSubscribe = () => {
+        const {name, cpf, email, birthDate, gender, password} =  this.state;
+        const user = {
+            name,
+            cpf,
+            email,
+            birthDate,
+            gender,
+            password
+        }
+        const result = formValidator(user);
         this.setState({
-           cpf : result
+            errors : result
         });
-    }
 
-    handleSubscribe = () =>{
-            console.log(this.state)
-            
-            api.post(`doandovidas/register`, {
-                name: this.state.name,
-                email: this.state.email,
-                cpf: this.state.cpf,
-                password: this.state.password,
-                birthDate: this.state.birthDate,
-                gender: this.state.gender
-            })
-            .then(resp =>{
+        if(!result){
+
+        }   
+        api.post(`doandovidas/register`, {
+            name: this.state.name,
+            email: this.state.email,
+            cpf: this.state.cpf,
+            password: this.state.password,
+            birthDate: this.state.birthDate,
+            gender: this.state.gender
+        })
+            .then(resp => {
                 const {
-                navigation : {navigate},
-            } = this.props;
-                navigate('Login', {email : this.state.email, password : this.state.password});
-            }).catch( err =>{
-                console.log('deu ruim');
-                console.log(err.response.data);
-                this.setState({errors : err.response.data.errors[0]});
+                    navigation: { navigate },
+                } = this.props;
+                navigate('Login', { email: this.state.email, password: this.state.password });
+            }).catch(err => {
+                // console.log('deu ruim');
+                // console.log(err.response.data);
+                
             });
-     
 
-         
-        
     }
     render() {
         const { name, cpf, email, birthDate, gender, password, errors } = this.state
@@ -71,58 +83,67 @@ export default class Cadastro extends React.Component {
                 </View>
                 <Title title={"Cadastro pessoal"} />
                 <View style={styles.container}>
-                <OutlinedTextField 
-                    inputContainerStyle={{backgroundColor : 'white'}}
-                    label='Nome completo' 
-                    baseColor={'#1D6F40'}
-                    value={name}
-                    onChangeText={(value) => {this.setState({name : value})}}
-                    error={errors}
+                    <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        label='Nome completo'
+                        baseColor={'#1D6F40'}
+                        value={name}
+                        onChangeText={(value) => { this.setState({name : value})}}
+                        error={errors == null ? '' : errors[0]}
+                        placeholder='Ex: Raphael Santantonio'
 
-                />
-                <OutlinedTextField 
-                    inputContainerStyle={{backgroundColor : 'white'}}
-                    label='CPF' 
-                    baseColor={'#1D6F40'} 
-                    value={cpf}
-                    onChangeText={(value) => {this.setState({cpf : value})}}
-                    
-                    
-                    // formatText={() =>{}} -- Colocar a máscara do CPF
-                />
-                <OutlinedTextField 
-                    label='E-mail' 
-                    baseColor={'#1D6F40'} 
-                    inputContainerStyle={{backgroundColor : 'white'}}
-                    keyboardType='email-address'
-                    value={email}
-                    onChangeText={(value)=>{this.setState({email : value})}}
-                    // formatText={() =>{}} -- Colocar a máscara do email
-                />
-                <OutlinedTextField 
-                    label='Data de nascimento' 
-                    baseColor={'#1D6F40'} 
-                    inputContainerStyle={{backgroundColor : 'white'}} 
-                    keyboardType='decimal-pad'
-                    value={birthDate}
-                    onChangeText={(value) => {this.setState({birthDate : value})}}
-                />
-                <OutlinedTextField 
-                    label='Sexo' 
-                    baseColor={'#1D6F40'} 
-                    inputContainerStyle={{backgroundColor : 'white'}} 
-                    value={gender}
-                    onChangeText={(value) => {this.setState({gender : value})}}
-                />
-                <OutlinedTextField 
-                    label='Senha' 
-                    baseColor={'#1D6F40'} 
-                    inputContainerStyle={{backgroundColor : 'white'}}
-                    value={gender}
-                    onChangeText={(value) => {this.setState({password : value})}}
-                /> 
+                    />
+                    <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        label='CPF'
+                        baseColor={'#1D6F40'}
+                        value={cpf}
+                        onChangeText={(value) => { this.setState({cpf: value }) }}
+                    //  formatText={() =>{}} -- Colocar a máscara do CPF
+                        error={errors == null ? '' : errors[1]}
+                        placeholder='Ex : 427.123.456-00'
+                    />
+                    <OutlinedTextField
+                        label='E-mail'
+                        baseColor={'#1D6F40'}
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        keyboardType='email-address'
+                        value={email}
+                        onChangeText={(value) => { this.setState({email: value}) }}
+                    //  formatText={() =>{}} -- Colocar a máscara do email
+                        error={errors == null ? '' : errors[2]}
+                        placeholder='maria@gmail.com'
+                    />
+                    <OutlinedTextField
+                        label='Data de nascimento'
+                        baseColor={'#1D6F40'}
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        keyboardType='decimal-pad'
+                        value={birthDate}
+                        placeholder='Ex : AAAA-MM-DD'
+                        onChangeText={(value) => { this.setState({birthDate : value}) }}
+                        error={errors == null ? '' : errors[3]}
+                    />
+                    <OutlinedTextField
+                        label='Sexo'
+                        baseColor={'#1D6F40'}
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        value={gender}
+                        onChangeText={(value) => { this.setState({gender: value }) }}
+                        error={errors == null ? '' : errors[4]}
+                        placeholder='Ex : Masculino'
+                    />
+                    <OutlinedTextField
+                        label='Senha'
+                        baseColor={'#1D6F40'}
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        value={password}
+                        onChangeText={(value) => { this.setState({password: value }) }}
+                        error={errors == null ? '' : errors[5]}
+                        placeholder='Ex : 123abcsenha'
+                    />
                 </View>
-                <MainButton text={'Cadastrar'} bgColor={'#3FB06F'} textColor={'white'} onPress={this.handleSubscribe}/>
+                <MainButton text={'Cadastrar'} bgColor={'#3FB06F'} textColor={'white'} onPress={this.handleSubscribe} />
             </ScrollView>
         )
     }
@@ -156,7 +177,7 @@ const styles = StyleSheet.create({
         width: width,
         alignSelf: 'center',
         flexDirection: 'column',
-        height: 380,
+        height: 500,
         justifyContent: 'space-between'
 
     },
@@ -169,8 +190,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderColor: '#018738',
     },
-    label : {
-        fontSize : 16,
-        marginBottom : 6
+    label: {
+        fontSize: 16,
+        marginBottom: 6
     }
 });

@@ -14,7 +14,7 @@ const width = Dimensions.get('screen').width / 100 * 90
 export default class VideoScreen extends React.Component {
 
     state = {
-        video : '',
+        video : ' ',
         hasVideo : false,
         pause : false
     }
@@ -36,8 +36,9 @@ export default class VideoScreen extends React.Component {
     chooseVideo = () =>{
         ImagePicker.openPicker({
             mediaType: 'video',
+
           }).then(video => {
-            console.log(video.exif)
+            console.log(video)
             this.setState({
                 video : video.path,
                 hasVideo : true
@@ -47,7 +48,7 @@ export default class VideoScreen extends React.Component {
 
     handleRemoveVideo = () =>{
         this.setState({
-            video : '',
+            video : ' ',
             hasVideo : false
         })
     }
@@ -67,6 +68,7 @@ export default class VideoScreen extends React.Component {
                         fullscreenOrientation={'landscape'}
                         maxBitRate={15000000}
                         resizeMode={'cover'}
+                        onLoad={() =>{console.log(video)}}
                         />
                 </View>
                 <View style={styles.options}>
