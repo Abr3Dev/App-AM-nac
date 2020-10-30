@@ -21,8 +21,8 @@ export default class Logout extends React.Component{
         const {name, photo} = this.state
         return(
             <View style={styles.container}>
-                <Image source={photo} style={styles.photo}/>
-                <Text style={styles.sentence}>Tem certeza que deseja sair {name}?</Text>
+                {/* <Image source={photo} style={styles.photo}/>*/}
+                <Text style={styles.sentence}>Tem certeza que deseja sair?</Text> 
                 <MainButton text={'Logout'} bgColor='#D93B3B' textColor='white' onPress={this.logout}/>
             </View>
         )

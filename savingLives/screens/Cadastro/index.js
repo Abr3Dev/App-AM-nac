@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, } from 'react-native';
 import MainButton from '../../components/MainButton';
 import Title from '../../components/Title';
-import { helpCpf, formValidator } from '../../Helpers/index'
+import { formValidator } from '../../Helpers/FormValidatorRegister' 
 import {
     TextField,
     FilledTextField,
@@ -18,21 +18,14 @@ const width = Dimensions.get('screen').width / 100 * 90
 //Fazer a chamada da API após o click no cadastrar. Tem que passar de uma validação. Será criada no helpers
 export default class Cadastro extends React.Component {
     state = {
-            name: '',
-            cpf: '',
-            email: '',
-            birthDate: '', // mudar lógica para date
-            gender: '',
-            password: '',
+            name: 'Raphael Santantonio',
+            cpf: '427.004.328-86',
+            email: 'raphaelcamar@outlook.com',
+            birthDate: '14/03/1999',
+            gender: 'Masculino',
+            password: '12345678',
             errors: []
     }
-    // keyCpf = (cpf) => {
-
-    //     let result = helpCpf(cpf);
-    //     this.setState({
-    //         cpf: result
-    //     });
-    // }
 
     handleSubscribe = () => {
         const {name, cpf, email, birthDate, gender, password} =  this.state;
@@ -49,9 +42,6 @@ export default class Cadastro extends React.Component {
             errors : result
         });
 
-        if(!result){
-
-        }   
         api.post(`doandovidas/register`, {
             name: this.state.name,
             email: this.state.email,
@@ -64,37 +54,41 @@ export default class Cadastro extends React.Component {
                 const {
                     navigation: { navigate },
                 } = this.props;
-                navigate('Login', { email: this.state.email, password: this.state.password });
+                navigate('Login', {success : true});
             }).catch(err => {
-                // console.log('deu ruim');
-                // console.log(err.response.data);
+                const arrErr = [null, err.response.data.errors[0], err.response.data.errors[1], null, null, null];
+                this.setState({
+                    errors : arrErr
+                })
                 
             });
-
     }
     render() {
         const { name, cpf, email, birthDate, gender, password, errors } = this.state
         return (
+            
             <ScrollView style={{ backgroundColor: '#ECECEC' }} keyboardDismissMode={'on-drag'} >
                 {/* <Header text={'Cadastro'} /> */}
                 <View style={styles.containerTitle}>
+                {/* <Success message="Cadastro Realizado com sucesso!"/> */}
                     <Text style={styles.titles}>Seja bem vindo!</Text>
                     <Text style={styles.subtitle}>Cadastre-se e envie uma mensagem!</Text>
                 </View>
                 <Title title={"Cadastro pessoal"} />
                 <View style={styles.container}>
                     <OutlinedTextField
-                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        inputContainerStyle={{ backgroundColor: 'white'}}
+                        containerStyle={{marginBottom : 24 }}
                         label='Nome completo'
                         baseColor={'#1D6F40'}
                         value={name}
                         onChangeText={(value) => { this.setState({name : value})}}
                         error={errors == null ? '' : errors[0]}
                         placeholder='Ex: Raphael Santantonio'
-
                     />
                     <OutlinedTextField
                         inputContainerStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{marginBottom : 24 }}
                         label='CPF'
                         baseColor={'#1D6F40'}
                         value={cpf}
@@ -104,9 +98,10 @@ export default class Cadastro extends React.Component {
                         placeholder='Ex : 427.123.456-00'
                     />
                     <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{marginBottom : 24 }}
                         label='E-mail'
                         baseColor={'#1D6F40'}
-                        inputContainerStyle={{ backgroundColor: 'white' }}
                         keyboardType='email-address'
                         value={email}
                         onChangeText={(value) => { this.setState({email: value}) }}
@@ -115,9 +110,10 @@ export default class Cadastro extends React.Component {
                         placeholder='maria@gmail.com'
                     />
                     <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{marginBottom : 24 }}
                         label='Data de nascimento'
                         baseColor={'#1D6F40'}
-                        inputContainerStyle={{ backgroundColor: 'white' }}
                         keyboardType='decimal-pad'
                         value={birthDate}
                         placeholder='Ex : AAAA-MM-DD'
@@ -125,18 +121,20 @@ export default class Cadastro extends React.Component {
                         error={errors == null ? '' : errors[3]}
                     />
                     <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{marginBottom : 24 }}
                         label='Sexo'
                         baseColor={'#1D6F40'}
-                        inputContainerStyle={{ backgroundColor: 'white' }}
                         value={gender}
                         onChangeText={(value) => { this.setState({gender: value }) }}
                         error={errors == null ? '' : errors[4]}
                         placeholder='Ex : Masculino'
                     />
                     <OutlinedTextField
+                        inputContainerStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{marginBottom : 24 }}
                         label='Senha'
                         baseColor={'#1D6F40'}
-                        inputContainerStyle={{ backgroundColor: 'white' }}
                         value={password}
                         onChangeText={(value) => { this.setState({password: value }) }}
                         error={errors == null ? '' : errors[5]}
@@ -177,9 +175,8 @@ const styles = StyleSheet.create({
         width: width,
         alignSelf: 'center',
         flexDirection: 'column',
-        height: 500,
+        height: 600,
         justifyContent: 'space-between'
-
     },
     picker: {
         height: 35,

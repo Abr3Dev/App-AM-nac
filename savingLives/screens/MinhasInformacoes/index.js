@@ -11,7 +11,8 @@ import {
     FilledTextField,
     OutlinedTextField,
 } from 'react-native-material-textfield';
-
+import { formValidator }from '../../Helpers/FormValidatorUpdate'
+import {Success} from '../../Helpers/Messages/index'
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -27,7 +28,9 @@ export default class MinhasInformacoes extends React.Component {
         password : '',
         cpf : '',
         isDisabled : true,
-        disabledColor : '#C6C5C5'
+        disabledColor : '#C6C5C5',
+        errors : [],
+        success : false
     }
 
     componentDidMount = () =>{
@@ -48,16 +51,21 @@ export default class MinhasInformacoes extends React.Component {
          });
     }
 
-    onChangeInput = () =>{
-        this.setState({
-            // isDisabled : true,
-            // disabledColor : '#009640',
-        })
-    }
-
 
     submitUpdate = () =>{
         const {id, email, cpf, birthDate, gender, password, name} = this.state
+        const user ={
+            name,
+            email,
+            gender,
+            password,
+        }
+
+        const result = formValidator(user);
+
+        this.setState({
+            errors : result
+        })
         
          api.put(`doandovidas/user/${this.state.id}`, {
              "name" : name,
@@ -79,26 +87,31 @@ export default class MinhasInformacoes extends React.Component {
                 cpf : data.cpf,
                 password : data.password,
                 isDisabled : true,
-                disabledColor : '#C6C5C5'
+                disabledColor : '#C6C5C5',
+                success : true
              });
             
          }).catch(err =>{
-             
+            
          })
     }
     render() {
-        const{isDisabled, disabledColor} = this.state;
+        const{isDisabled, disabledColor, errors, success} = this.state;
         const { user } = this.props;
 
         return (
             <View>
                 <Title title={"Minhas informações"} />
                 <View style={styles.container}>
+                {success == true &&(
+                    <Success message="Usuário atualizado com sucesso! Reinice o aplicativo para visualizar"/>
+                )}
                 <OutlinedTextField
                     inputContainerStyle={{backgroundColor : 'white'}}
                     label='Nome' 
                     baseColor={'#1D6F40'} 
                     value={user.name}
+                    error={errors == null ? '' : errors[0]}
                     // onChange={this.handleChangeInputs}
                     onChangeText={(value) =>{this.setState({name : value, isDisabled : false, disabledColor : '#009640'})}}
                 />
@@ -106,7 +119,8 @@ export default class MinhasInformacoes extends React.Component {
                     inputContainerStyle={{backgroundColor : 'white'}}
                     label='E-mail' 
                     baseColor={'#1D6F40'}
-                    value={user.email} 
+                    value={user.email}
+                    error={errors == null ? '' : errors[2]}
                     // onChange={this.handleChangeInputs}
                     onChangeText={(value) =>{this.setState({email : value, isDisabled : false, disabledColor : '#009640'})}}                
                     />
@@ -123,6 +137,7 @@ export default class MinhasInformacoes extends React.Component {
                     label='Sexo' 
                     baseColor={'#1D6F40'}
                     value={user.gender} 
+                    error={errors == null ? '' : errors[4]}
                     // onChange={this.handleChangeInputs}
                     onChangeText={(value) =>{this.setState({gender : value, isDisabled : false, disabledColor : '#009640'})}}
                 />
@@ -131,6 +146,7 @@ export default class MinhasInformacoes extends React.Component {
                     label='Senha' 
                     baseColor={'#1D6F40'} 
                     value={user.password}
+                    error={errors == null ? '' : errors[5]}
                     // onChange={this.handleChangeInputs}
                     onChangeText={(value) =>{this.setState({password : value, isDisabled : false, disabledColor : '#009640'})}}
                 />

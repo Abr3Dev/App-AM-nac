@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import MainButton from '../../components/MainButton';
 import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
 import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import EditButton from '../../components/EditButton';
 import Title from '../../components/Title'
 import Video from 'react-native-video';
+import api from '../../api/api';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -14,53 +15,66 @@ export default class MeuVideo extends React.Component {
 
     state = {
         idUser: 0,
+        contentId : 0,
         hasVideo: false,
-        paused: false,
-        video: ''
+        video: ' ',
+        paused : false
     }
 
     componentDidMount = () => {
-        //Aqui vai pesquisar no banco o Id recebido do usuário. Caso não tnha um vídeo, retorna uma View
+        const contentId = this.props.video;
+
+        api.get(`doandovidas/content/${contentId}`)
+        .then(resp =>{
+            const {video} = resp.data.data
+            console.log(video);
+            this.setState({
+                contentId : contentId,
+                video : video ==  null ? ' ' : video,
+                hasVideo : this.state.video == ' ' ? false : true
+            });
+            
+        }).catch(err =>{
+            console.log(err.response.data);
+        })
+    }
+
+    scroll = () =>{
+        this.setState({
+            paused : true
+        })
     }
 
     render() {
-        const { hasVideo, paused, video } = this.state
-        const {onPress} = this.props
+        const { hasVideo, video } = this.state;
+        const { onPress, onScroll } = this.props;
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Title title={"Meu vídeo"} />
 
                 {hasVideo && (
-                    
                     <>
                         <Video
-                            source={video  == null ? '' : { uri: video }}
-                            style={styles.video}
+                            source={video  == ' ' ? ' ' : { uri: video }}
+                            style={styles.videoplay}
                             controls={true}
                             pictureInPicture={true}
-                            
+                            fullscreenOrientation={'landscape'}
+                            resizeMode={'cover'}
+                            paused={onScroll}
                         />
-                        <View style={styles.options}>
-                            <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close} />
-                            {hasVideo && console.log(video)(
-                                <TouchableOpacity>
-                                    <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload} />
-                                </TouchableOpacity>
-                            )}
-                            {!hasVideo && (
-                                <TouchableOpacity>
-                                    <EditButton colorButton={'#0389FF'} text='Adicionar vídeo' icon={upload} />
-                                </TouchableOpacity>
-                            )}
-                        </View>
                     </>
                 )}
-                <View style={styles.noVideo}>
-                    <Text style={styles.TextNoVideo}>Você não possui vídeo!</Text>
-                </View>
-                <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={onPress}/>
-
-            </View>
+                {!hasVideo &&(
+                    <>
+                        <View style={styles.noVideo}>
+                        <Text style={styles.TextNoVideo}>Você não possui vídeo!</Text>
+                        </View>
+                        <MainButton text='Adicionar Vídeo' bgColor='#009640' textColor='white' onPress={onPress}/>
+                    </>
+                )}
+                
+            </ScrollView>
         )
     }
 }
@@ -69,11 +83,13 @@ const styles = StyleSheet.create({
     container: {
         width: width,
     },
-    video: {
+    videoplay : {
         width : width,
         height : 300,
-        backgroundColor : 'blue',
-        alignSelf: 'center'
+        alignSelf : 'flex-end',
+        alignItems : 'center',
+        justifyContent : 'center',
+
     },
     noVideo: {
         width: width,

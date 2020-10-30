@@ -7,19 +7,19 @@ import {
     OutlinedTextField,
 } from 'react-native-material-textfield';
 import api from '../../api/api'
+import { Success } from '../../Helpers/Messages';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default class MinhaMensagem extends React.Component {
 
-    //Aqui nós vamos dar uma call na API e adcionar nos inputs os familiares a serem enviados a mensagem. Caso não tenha, retorna apenas um
-    //Esses dois é apenas um exemplo de como vai ser
     state = {
         message : '',
         id : 0,
         isChanged : false,
         disabledColor : '#C6C5C5',
         error : false,
+        success : false
     }
 
     componentDidMount = () =>{
@@ -43,8 +43,9 @@ export default class MinhaMensagem extends React.Component {
         }).then(resp =>{
             
             this.setState({
-                isChanged : false,
-                disabledColor : '#C6C5C5'
+                isChanged : true,
+                disabledColor : '#C6C5C5',
+                success : true
             })
         }).catch(err =>{
             console.log(err.response.data)
@@ -52,26 +53,27 @@ export default class MinhaMensagem extends React.Component {
     }
 
     render() {
-        const {message, disabledColor, isChanged} = this.state
+        const {message, disabledColor, isChanged, success} = this.state
        
         return (
             <View>
+                
                 <Title title={"Minha mensagem"} />
                 <View style={styles.container}>
+               { success == true && <Success message="Mensagem atualizada com sucesso!"/>}
                     <TextInput 
                         multiline={true} 
-                        numberOfLines={7} 
+                        numberOfLines={15} 
                         style={styles.textArea} 
-                        scrollEnabled={true} 
                         value={message}
                         onChangeText={(value) =>{this.setState({message : value, disabledColor : '#009640', isChanged : false })}}
                     />
-                    <Text style={styles.for}>
+                    {/* <Text style={styles.for}>
                         Será enviado para:
-                    </Text>
+                    </Text> */}
                    
-                    <OutlinedTextField label='E-mail da pessoa 1' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
-                    <OutlinedTextField label='E-mail da pessoa 2' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
+                    {/* <OutlinedTextField label='E-mail da pessoa 1' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} />
+                    <OutlinedTextField label='E-mail da pessoa 2' baseColor={'#1D6F40'} inputContainerStyle={{backgroundColor : 'white'}} /> */}
                     
 
                     {/* <View style={styles.addMore}>
@@ -101,7 +103,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.29,
         shadowRadius: 2,
         marginBottom : 16,
-        elevation: 1,
         borderRadius: 5,
         width : width,
         alignSelf : "center"

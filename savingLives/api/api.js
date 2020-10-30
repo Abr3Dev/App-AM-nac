@@ -4,9 +4,14 @@ const api = axios.create({
     baseURL : 'http://192.168.15.5:8083/api',
     headers: {
         'Content-Type':'application/json; charset=UTF-8',
-}
-
+},
 });
+
+// const apiVideo = axios.create({
+//     baseURL : 'http://192.168.15.5:8083/api',
+    
+//     responseType= 'blob'
+// })
 
 export default api;
 

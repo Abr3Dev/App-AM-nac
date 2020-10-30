@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import logo from '../../assets/Logo.png';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+
 import {
     TextField,
     FilledTextField,
@@ -12,6 +13,7 @@ import {
 import MainButton from '../../components/MainButton';
 
 import api from '../../api/api';
+import { Success } from '../../Helpers/Messages';
 
 const width = Dimensions.get('screen').width / 100 * 90
 const height = Dimensions.get('window').height / 100 * 90;
@@ -19,7 +21,7 @@ const height = Dimensions.get('window').height / 100 * 90;
 export default class Login extends React.Component {
 
     state = {
-        email : 'joao01@hotmail.com',
+        email : 'raphaelcamar@outlook.com',
         password : '12345678',
         error : false,
         textError : ''
@@ -29,6 +31,7 @@ export default class Login extends React.Component {
         const {email, password} = this.state
          api.post(`doandovidas/user/${email}/${password}`).then(resp =>{
             const { navigation: { navigate }, } = this.props
+
             navigate('TelaPrincipal', {userData : resp.data.data});
             
          }).catch(err =>{
@@ -39,16 +42,27 @@ export default class Login extends React.Component {
 
     handleChangepass = () => {
         const { navigation : {navigate},} = this.props
+        
         navigate('RedefinirSenha',);
     }
 
     render() {
         const {textError, email, password,  error} = this.state;
-        // const {email, password} = params !== undefined  ? params : this.state;
+        const {
+            navigation : {
+                state : {params}
+            },
+        } = this.props;
 
         return (
             <ScrollView style={styles.screen} keyboardDismissMode={'on-drag'} >
                 <View style={styles.container}>
+
+                {params != undefined && (
+                     <Success message={'Usuário criado com sucesso!'}/>
+                )}
+
+
                     <Image style={styles.logo} source={logo} height={80} width={100} />
                     <OutlinedTextField 
                         label='E-mail' 

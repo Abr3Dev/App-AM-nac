@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
 import EditButton from '../../components/EditButton';
 import Header from '../../components/Header';
 import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
@@ -7,55 +7,80 @@ import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
 import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import Video, { FilterType } from 'react-native-video';
-// import user from '../../assets/defaults/user.png';
+import api from '../../api/api';
+
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default class VideoScreen extends React.Component {
 
     state = {
+        id : 0,
         video : ' ',
         hasVideo : false,
         pause : false
     }
 
-    componentDidMount = () =>{
-        //Chamar o vídeo através do ID passado para cá
+    // componentDidMount = () => {
+    //     this.setState({
+    //         id : contentId
+    //     });
+    //     console.log(contentId)
+    // }
 
-        // ImagePicker.openPicker({
-        //     mediaType: 'video',
-        //   }).then(video => {
-            
-        //     this.setState({
-        //         video : video.path,
-        //         hasVideo : true
-        //     })
-        //   });
+    componentDidMount = () =>{
+        //const {navigation : {state : {params}}} = this.props;   
+       
     }
 
-    chooseVideo = () =>{
+    chooseVideo = (id) =>{
+
         ImagePicker.openPicker({
             mediaType: 'video',
-
-          }).then(video => {
-            console.log(video)
+        }).then(video => {
             this.setState({
                 video : video.path,
                 hasVideo : true
-            })
-          });
-    }
+            });
+            console.log(id)
+        this.sendVideo(id);
+    });
+}
 
-    handleRemoveVideo = () =>{
-        this.setState({
-            video : ' ',
-            hasVideo : false
+    sendVideo = (id) =>{
+        console.log( id)
+        const {contentId} = this.state
+        api.put(`doandovidas/content/update/${contentId}`, {
+            'id' : id,
+            'video' : this.state.video
+        })
+        .then(response =>{
+            
+        }).catch(err =>{
+            console.log('deu erro')
+            console.log(err.response.data)
         })
     }
 
+    handleRemoveVideo = (id) =>{
+        
+        api.delete(`doandovidas/content/delete/`, {
+            'id' : id,
+            'video' : null
+        }).then(response =>{ 
+            console.log(response.data)
+            this.setState({
+                video : ' ',
+                hasVideo : false
+            });
+        }).catch(err =>{
+            console.log(err.response);
+        })
+    }
 
     render() {
         const {video, hasVideo} = this.state
+        
         return (
             <>
             <Header text='Meu Vídeo' />
@@ -66,9 +91,7 @@ export default class VideoScreen extends React.Component {
                         style={styles.videoplay}
                         controls={true}
                         fullscreenOrientation={'landscape'}
-                        maxBitRate={15000000}
                         resizeMode={'cover'}
-                        onLoad={() =>{console.log(video)}}
                         />
                 </View>
                 <View style={styles.options}>
@@ -88,6 +111,7 @@ export default class VideoScreen extends React.Component {
                         
                 </View>
             </View>
+
             </>
         )
     }

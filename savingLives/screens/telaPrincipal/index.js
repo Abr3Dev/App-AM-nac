@@ -11,6 +11,8 @@ import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
 import photoUser from '../..//assets/defaults/user.png';
 import api from '../../api/api';
+import { Success } from '../../Helpers/Messages';
+import VideoScreen from '../VideoScreen';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
@@ -34,20 +36,20 @@ export default class TelaPrincipal extends React.Component{
         colorFont : '#C6C5C5',      
         video : '',
         hasVideo : false,
+        pause : true,
         nameTopic : 'MinhasInformacoes',
+        success : false,
     };
 
     
     componentDidMount = () =>{
 
-        const {
-            navigation : {
-                state : {params}
-            },
-        } = this.props;
+        const {navigation : {navigate, state : {params}}} = this.props;
 
         const {userData} = params;
-        
+
+        navigate('VideoScreens', {userData : 'deu certo'});
+
         this.setState({
             user : {
                 id : userData.id,
@@ -67,7 +69,7 @@ export default class TelaPrincipal extends React.Component{
         const {
             navigation : {navigate},
         } = this.props;
-        navigate('VideoScreen')
+        navigate('VideoScreen', {contentId : this.state.user.contentId})
     }
 
     onScrollColor = e => {
@@ -75,14 +77,17 @@ export default class TelaPrincipal extends React.Component{
         if(position <= 162){
             this.setState({
                 nameTopic : 'MinhasInformacoes',
+                pause : true
             });
         }else if(position >= 162 && position <= 486){  
             this.setState({
-                nameTopic : 'MinhaMensagem'
+                nameTopic : 'MinhaMensagem',
+                pause : true
             });
         }else if(position >= 486 && position ){
             this.setState({
-                nameTopic : 'MeuVideo'
+                nameTopic : 'MeuVideo',
+                pause : true
             });
         }
     }
@@ -113,7 +118,8 @@ export default class TelaPrincipal extends React.Component{
                     user : {
                         avatar : image.data,
                         name : resp.data.data.name,
-                    }
+                    },
+                    success : true
                 });
                 
             }).catch(err =>{
@@ -139,20 +145,23 @@ export default class TelaPrincipal extends React.Component{
 
         const {userData} = params;
 
-        const {colorIcon, colorFont, nameTopic, video, hasVideo, user : {
+        const {colorIcon, colorFont, nameTopic,hasVideo, pause, success, user : {
             avatar,
             name
         }} = this.state;
 
-        return( 
-            <ScrollView style={{backgroundColor : '#ECECEC'}}>
-           <Header text={"Minhas informações"}/>
+    return( 
+        <ScrollView style={{backgroundColor : '#ECECEC'}}>
+            <Header text={"Minhas informações"}/>
             <View style={styles.container}>
+            {success == true &&(
+                <Success message='Foto atualizada com sucesso!'/>
+            )}
                 <TouchableOpacity onPress={this.useFromLibrary}>
-                <Image source={avatar == null ? photoUser : {uri : `data:image/gif;base64,${avatar}`}} style={styles.photo}/>
+                    <Image source={avatar == null ? photoUser : {uri : `data:image/gif;base64,${avatar}`}} style={styles.photo}/>
                 </TouchableOpacity>
                 <View style={styles.descriptionContainer}>
-        <Text style={styles.reverence}>Olá {this.changeName(name)}!</Text>
+                    <Text style={styles.reverence}>Olá {this.changeName(name)}!</Text>
                     <Text style={styles.textReverece}>Aqui você pode visualizar e editar seus dados!</Text>
                 </View>
             </View>
@@ -243,19 +252,23 @@ export default class TelaPrincipal extends React.Component{
                
             </View>
 
-            {/* Precisa colocar uma função para mudar os Options navigation conforme o scroll ao lado */}
             <ScrollView 
                 style={styles.options} 
                 horizontal={true} 
                 pagingEnabled={true}
                 keyboardDismissMode={'on-drag'} 
-                onScroll={this.onScrollColor}   
+                onScroll={this.onScrollColor}
             >
                 <MinhasInformacoes user={userData}/>
-               <MinhaMensagem contentId={userData.contentId}/> 
-               <MeuVideo video={video} hasVideo={hasVideo} onPress={this.handleAddVideo}/>
+                <MinhaMensagem contentId={userData.contentId}/> 
+                <MeuVideo video={userData.contentId} hasVideo={hasVideo} onPress={this.handleAddVideo} onScroll={pause}/>
             </ScrollView>
-            </ScrollView>
+
+            {/* <View style={styles.gamby}>
+                <VideoScreen contentId={userData.contentId}/>
+            </View> */}
+        </ScrollView>
+        
 
         );
     }
@@ -297,4 +310,7 @@ const styles = StyleSheet.create({
        width : width,
        alignSelf : 'center'
    },
+   gamby : {
+       display : "none"
+   }
 })

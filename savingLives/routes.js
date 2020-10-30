@@ -152,7 +152,6 @@ const stackNavigator = createStackNavigator(
         RedefinirSenhaCodigo : {
             screen : RedefinirSenhaCodigo
         }
-
     },
     {
         initialRouteName : 'Carousel',
