@@ -114,9 +114,9 @@ export default class Cadastro extends React.Component {
                         containerStyle={{marginBottom : 24 }}
                         label='Data de nascimento'
                         baseColor={'#1D6F40'}
-                        keyboardType='decimal-pad'
+                        keyboardType='visible-password'
                         value={birthDate}
-                        placeholder='Ex : AAAA-MM-DD'
+                        placeholder='Ex : AAAA/MM/DD'
                         onChangeText={(value) => { this.setState({birthDate : value}) }}
                         error={errors == null ? '' : errors[3]}
                     />
@@ -136,6 +136,7 @@ export default class Cadastro extends React.Component {
                         label='Senha'
                         baseColor={'#1D6F40'}
                         value={password}
+                        keyboardType='visible-password'
                         onChangeText={(value) => { this.setState({password: value }) }}
                         error={errors == null ? '' : errors[5]}
                         placeholder='Ex : 123abcsenha'

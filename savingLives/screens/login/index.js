@@ -13,8 +13,8 @@ const height = Dimensions.get('window').height / 100 * 90;
 export default class Login extends React.Component {
 
     state = {
-        email : 'raphaelcamar@outlook.com',
-        password : '12345678',
+        email : '',
+        password : '',
         error : false,
         textError : ''
     }
@@ -32,12 +32,6 @@ export default class Login extends React.Component {
             console.log('Erros', err.response.data);
              this.setState({error : true, textError : ' '});
          });
-    }
-
-    handleChangepass = () => {
-        const { navigation : {navigate},} = this.props
-        
-        navigate('RedefinirSenha');
     }
 
     render() {
@@ -75,7 +69,6 @@ export default class Login extends React.Component {
                         error={textError}
                     />
                     {error && <Text style={styles.error} onPress={() =>{this.setState({textError : '', error : false})}}>Usuário não encontrado</Text>}
-                    <Text style={styles.forgotPassword} onPress={this.handleChangepass}>Esqueci minha senha</Text>
                     <MainButton text='Entrar na minha conta' bgColor={'#009640'} textColor='white' onPress={this.handleLogin} />
                 </View>
             </ScrollView>

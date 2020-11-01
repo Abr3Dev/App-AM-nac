@@ -88,12 +88,6 @@ const stackNavigator = createStackNavigator(
         DuvidasFrequentes : {
             screen : DuvidasFrequentes
         },
-        RedefinirSenha : {
-            screen : RedefinirSenha
-        },
-        RedefinirSenhaCodigo : {
-            screen : RedefinirSenhaCodigo
-        },
         SobreAMensagem : {
             screen : SobreAMensagem
         },

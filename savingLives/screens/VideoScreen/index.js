@@ -7,6 +7,7 @@ import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import api from '../../api/api';
 import { Fail, Success } from '../../Helpers/Messages';
+import Video from 'react-native-video';
 
 
 const width = Dimensions.get('screen').width / 100 * 90
