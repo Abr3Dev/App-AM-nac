@@ -7,18 +7,12 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import HeaderArrow from '../../components/HeaderArrow';
-import Input from '../../components/Input';
 import MainButton from '../../components/MainButton';
 import logo from '../../assets/Logo.png';
-import {
-  TextField,
-  FilledTextField,
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+import {OutlinedTextField} from 'react-native-material-textfield';
 import Header from '../../components/Header';
 import api from '../../api/api';
-const height = Dimensions.get('screen').height;
+
 const width = Dimensions.get('screen').width / 100 * 90;
 
 export default class RedefinirSenha extends React.Component {

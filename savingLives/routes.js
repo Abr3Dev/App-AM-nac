@@ -2,20 +2,15 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import { faUserAlt as user } from '@fortawesome/free-solid-svg-icons';
-import { faVideo as upload } from '@fortawesome/free-solid-svg-icons';
 import { faInfo as info } from '@fortawesome/free-solid-svg-icons';
-import { faSignOutAlt as logout } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import Cadastro from './screens/Cadastro';
 import Carousel from './screens/Carousel';
-import Logout from './screens/Logout';
 import Login from './screens/Login';
 import Duvidas from './screens/Duvidas/index';
 import TelaPrincipal from './screens/TelaPrincipal';
 import DuvidasFrequentes from './screens/DuvidasFrequentes';
-import MeuVideo from './screens/MeuVideo';
-import VideoScreen from './screens/VideoScreen';
 import RedefinirSenha from './screens/RedefinirSenha';
 import RedefinirSenhaCodigo from './screens/RedefinirSenhaCodigo';
 import SobreAMensagem from './screens/SobreAMensagem';
@@ -30,18 +25,6 @@ const getTabBarIcon = (icon) => ({tintColor}) =>(
     />
 )
 
-const LogoutScreens = createStackNavigator(
-    {Logout},
-    {
-        initialRouteName : 'Logout',
-        navigationOptions : {
-            tabBarIcon : getTabBarIcon(logout),
-            tabBarLabel: 'Logout',
-        },
-        headerMode : false
-    }
-)
-
 const UserScreens = createStackNavigator(
     {TelaPrincipal},
     {
@@ -53,20 +36,6 @@ const UserScreens = createStackNavigator(
        headerMode : false
     }
 );
-
-
-const VideoScreens = createStackNavigator(
-    {VideoScreen},
-    {
-       initialRouteName : 'VideoScreen',
-       navigationOptions : {
-           tabBarIcon: getTabBarIcon(upload),
-           tabBarLabel: 'Meu vídeo',
-       } ,
-       headerMode : false
-    }
-);
-
 
 const QuestionScreens = createStackNavigator(
     {Duvidas},
@@ -118,12 +87,6 @@ const stackNavigator = createStackNavigator(
         },
         DuvidasFrequentes : {
             screen : DuvidasFrequentes
-        },
-        Logout : {
-            screen : Logout
-        },
-        MeuVideo : {
-            screen : MeuVideo
         },
         RedefinirSenha : {
             screen : RedefinirSenha

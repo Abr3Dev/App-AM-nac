@@ -2,14 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, Image,Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import logo from '../../assets/Logo.png';
-
-import {
-    TextField,
-    FilledTextField,
-    OutlinedTextField,
-} from 'react-native-material-textfield';
+import {OutlinedTextField,} from 'react-native-material-textfield';
 import MainButton from '../../components/MainButton';
-
 import api from '../../api/api';
 import { Success } from '../../Helpers/Messages';
 

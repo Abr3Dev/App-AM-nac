@@ -1,13 +1,9 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import MainButton from '../../components/MainButton';
 import Title from '../../components/Title';
 import api from '../../api/api'
-import {
-    TextField,
-    FilledTextField,
-    OutlinedTextField,
-} from 'react-native-material-textfield';
+import { OutlinedTextField } from 'react-native-material-textfield';
 import { formValidator }from '../../Helpers/FormValidatorUpdate'
 import {Success} from '../../Helpers/Messages/index'
 

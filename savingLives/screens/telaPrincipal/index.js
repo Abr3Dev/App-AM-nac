@@ -7,7 +7,6 @@ import Header from '../../components/Header';
 import Topic from '../../components/Topic';
 import MinhasInformacoes from '../MinhasInformacoes';
 import MinhaMensagem from '../MinhaMensagem';
-import MeuVideo from '../MeuVideo';
 import ImagePicker from 'react-native-image-crop-picker';
 import photoUser from '../..//assets/defaults/user.png';
 import api from '../../api/api';

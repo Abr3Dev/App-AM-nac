@@ -8,18 +8,18 @@ import {
 } from 'react-native-material-textfield';
 
 import api from '../../api/api';
-import { Fail, Success } from '../../Helpers/Messages';
+import { Fail } from '../../Helpers/Messages';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
 export default class Cadastro extends React.Component {
     state = {
-            name: 'Raphael Santantonio',
-            cpf: '427.004.328-86',
-            email: 'raphaelcamar@outlook.com',
-            birthDate: '14/03/1999',
-            gender: 'Masculino',
-            password: '12345678',
+            name: '',
+            cpf: '',
+            email: '',
+            birthDate: '',
+            gender: '',
+            password: '',
             errors: [],
             error : false
     }
@@ -67,10 +67,10 @@ export default class Cadastro extends React.Component {
         return (
             
             <ScrollView style={{ backgroundColor: '#ECECEC' }} keyboardDismissMode={'on-drag'} >
-                {/* <Header text={'Cadastro'} /> */}
                 <View style={styles.containerTitle}>
-                    {<Fail message="Algo deu errado. Tente novamente mais tarde"/>}
-                {/* <Success message="Cadastro Realizado com sucesso!"/> */}
+
+                    {error && <Fail message="Algo deu errado. Tente novamente mais tarde"/>}
+
                     <Text style={styles.titles}>Seja bem vindo!</Text>
                     <Text style={styles.subtitle}>Cadastre-se e envie uma mensagem!</Text>
                 </View>

@@ -1,12 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Dimensions} from 'react-native';
 import EditButton from '../../components/EditButton';
-import Header from '../../components/Header';
 import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
 import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
 import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
-import Video, { FilterType } from 'react-native-video';
 import api from '../../api/api';
 import { Fail, Success } from '../../Helpers/Messages';
 

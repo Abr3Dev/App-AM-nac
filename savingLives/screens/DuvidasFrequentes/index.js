@@ -1,9 +1,8 @@
 import React from 'react'
-import {StyleSheet, View, Dimensions, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import Title from '../../components/Title';
 import LinkBar from '../../components/LinkBar/index';
 import Header from '../../components/Header';
-const height = Dimensions.get('screen').height;
 
 export default class DuvidasFrequentes extends React.Component{
     

@@ -7,18 +7,11 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import HeaderArrow from '../../components/HeaderArrow';
-import Input from '../../components/Input';
+
 import MainButton from '../../components/MainButton';
 import logo from '../../assets/Logo.png';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye as eye} from '@fortawesome/free-solid-svg-icons';
 import Header from '../../components/Header';
-import {
-  TextField,
-  FilledTextField,
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+import {OutlinedTextField} from 'react-native-material-textfield';
 const height = Dimensions.get('screen').height;
 const width = Dimensions.get('screen').width / 100 * 90
 
