@@ -251,7 +251,6 @@ export default class TelaPrincipal extends React.Component{
                 )}
                
             </View>
-
             <ScrollView 
                 style={styles.options} 
                 horizontal={true} 
@@ -261,15 +260,10 @@ export default class TelaPrincipal extends React.Component{
             >
                 <MinhasInformacoes user={userData}/>
                 <MinhaMensagem contentId={userData.contentId}/> 
-                <MeuVideo video={userData.contentId} hasVideo={hasVideo} onPress={this.handleAddVideo} onScroll={pause}/>
+                <VideoScreen contentId={userData.contentId} hasVideo={hasVideo} onPress={this.handleAddVideo} onScroll={pause}/>
             </ScrollView>
-
-            {/* <View style={styles.gamby}>
-                <VideoScreen contentId={userData.contentId}/>
-            </View> */}
         </ScrollView>
         
-
         );
     }
 }

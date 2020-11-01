@@ -18,6 +18,9 @@ import MeuVideo from './screens/MeuVideo';
 import VideoScreen from './screens/VideoScreen';
 import RedefinirSenha from './screens/RedefinirSenha';
 import RedefinirSenhaCodigo from './screens/RedefinirSenhaCodigo';
+import SobreAMensagem from './screens/SobreAMensagem';
+import SobreSNT from './screens/SobreSNT';
+import SobreNos from './screens/SobreNos'
 
 const getTabBarIcon = (icon) => ({tintColor}) =>(
     <FontAwesomeIcon
@@ -38,27 +41,6 @@ const LogoutScreens = createStackNavigator(
         headerMode : false
     }
 )
-
-// const AllScreens = createStackNavigator(
-//     {
-//         Carousel : {
-//             screen : Carousel,
-//             navigationOptions : {
-//                 header : () => false
-//             }
-//         },
-//         Cadastro : {
-//             screen : Cadastro,
-//             navigationOptions : {
-//                 header : () => false
-//             }
-//         },
-//         Login : {
-//             screen : Login
-//         }
-
-//     }
-// )
 
 const UserScreens = createStackNavigator(
     {TelaPrincipal},
@@ -102,9 +84,7 @@ const QuestionScreens = createStackNavigator(
 const TabNavigator = createBottomTabNavigator(
     {
         TelaPrincipal : UserScreens,
-        VideoScreen : VideoScreens,
         Login : QuestionScreens,
-        Logout : LogoutScreens,
     },
     {
         initialRouteName : 'TelaPrincipal',
@@ -145,12 +125,20 @@ const stackNavigator = createStackNavigator(
         MeuVideo : {
             screen : MeuVideo
         },
-
         RedefinirSenha : {
             screen : RedefinirSenha
         },
         RedefinirSenhaCodigo : {
             screen : RedefinirSenhaCodigo
+        },
+        SobreAMensagem : {
+            screen : SobreAMensagem
+        },
+        SobreNos : {
+            screen : SobreNos
+        },
+        SobreSNT : {
+            screen : SobreSNT
         }
     },
     {

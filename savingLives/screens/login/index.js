@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image,Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import logo from '../../assets/Logo.png';
-import Header from '../../components/Header';
-import Input from '../../components/Input';
 
 import {
     TextField,
@@ -32,6 +30,8 @@ export default class Login extends React.Component {
          api.post(`doandovidas/user/${email}/${password}`).then(resp =>{
             const { navigation: { navigate }, } = this.props
 
+
+
             navigate('TelaPrincipal', {userData : resp.data.data});
             
          }).catch(err =>{
@@ -43,7 +43,7 @@ export default class Login extends React.Component {
     handleChangepass = () => {
         const { navigation : {navigate},} = this.props
         
-        navigate('RedefinirSenha',);
+        navigate('RedefinirSenha');
     }
 
     render() {

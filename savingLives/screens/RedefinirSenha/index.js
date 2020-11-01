@@ -17,16 +17,31 @@ import {
   OutlinedTextField,
 } from 'react-native-material-textfield';
 import Header from '../../components/Header';
+import api from '../../api/api';
 const height = Dimensions.get('screen').height;
 const width = Dimensions.get('screen').width / 100 * 90;
 
 export default class RedefinirSenha extends React.Component {
 
+  state = {
+    email : '',
+    error : false,
+  }
+
   handleSendEmail = () =>{
     const {
       navigation : {navigate},
   } = this.props;
-  navigate('RedefinirSenhaCodigo')
+  
+    api.post(`doandovidas/user/${this.state.email}`)
+    .then(resp =>{
+      console.log(resp)
+      navigate('RedefinirSenhaCodigo')
+    }).catch(err =>{
+      console.log(err.response)
+    })
+
+  
   }
 
   goBack = () =>{
@@ -45,24 +60,14 @@ export default class RedefinirSenha extends React.Component {
             <Image style={styles.logo} source={logo} height={40} width={55} />
             <Text style={styles.p}>
               Informe os dados a seguir para confirmar que é você. Em seguida,
-              irá ser enviado um e-mail para o próximo passo de redefinição
+              você será redirecionado para uma tela onde irá visualizar seus dados, e atualizar sua senha
             </Text>
-            <OutlinedTextField 
-              label='Nome' 
-              baseColor={'#1D6F40'} 
-              inputContainerStyle={{ backgroundColor: 'white' }} 
-            />
             <OutlinedTextField 
               label='E-mail' 
               baseColor={'#1D6F40'} 
               inputContainerStyle={{ backgroundColor: 'white' }} 
               keyboardType='email-address'
-            />
-            <OutlinedTextField 
-              label='CPF' 
-              baseColor={'#1D6F40'} 
-              inputContainerStyle={{ backgroundColor: 'white' }} 
-              keyboardType='decimal-pad'
+              onChangeText={(value)=>{this.setState({email : value})}}
             />
             <MainButton
               style={styles.form}

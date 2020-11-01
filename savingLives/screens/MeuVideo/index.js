@@ -1,10 +1,6 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, ScrollView } from 'react-native';
 import MainButton from '../../components/MainButton';
-import { faTimesCircle as close } from '@fortawesome/free-solid-svg-icons';
-import { faRedo as reload } from '@fortawesome/free-solid-svg-icons';
-import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
-import EditButton from '../../components/EditButton';
 import Title from '../../components/Title'
 import Video from 'react-native-video';
 import api from '../../api/api';

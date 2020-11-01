@@ -8,6 +8,7 @@ import { faUpload as upload } from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import Video, { FilterType } from 'react-native-video';
 import api from '../../api/api';
+import { Fail, Success } from '../../Helpers/Messages';
 
 
 const width = Dimensions.get('screen').width / 100 * 90
@@ -15,76 +16,102 @@ const width = Dimensions.get('screen').width / 100 * 90
 export default class VideoScreen extends React.Component {
 
     state = {
-        id : 0,
+        contentId : 0,
         video : ' ',
         hasVideo : false,
-        pause : false
+        pause : true,
+        error : false,
+        message : '',
+        success : ''
     }
 
-    // componentDidMount = () => {
-    //     this.setState({
-    //         id : contentId
-    //     });
-    //     console.log(contentId)
-    // }
+    componentDidMount = () =>{ 
+        const {contentId} = this.props
+        this.setState({
+            contentId : contentId,
+            success : ''
+        })
 
-    componentDidMount = () =>{
-        //const {navigation : {state : {params}}} = this.props;   
-       
+        api.get(`doandovidas/content/${contentId}`)
+        .then(resp =>{
+            this.setState({
+                video : resp.data.data.video == null ? ' ' : resp.data.data.video,
+                pause : true,
+                message : resp.data.data.message,
+                hasVideo : resp.data.data.video == null ? false : true
+            })
+        }).catch(err =>{
+            this.setState({
+                error : true
+            })
+        })
     }
 
-    chooseVideo = (id) =>{
+    chooseVideo = () =>{
 
         ImagePicker.openPicker({
             mediaType: 'video',
         }).then(video => {
             this.setState({
                 video : video.path,
-                hasVideo : true
-            });
-            console.log(id)
-        this.sendVideo(id);
-    });
+                hasVideo : true,
+            })
+        this.sendVideo();
+    })
 }
 
-    sendVideo = (id) =>{
-        console.log( id)
+    sendVideo = () =>{
         const {contentId} = this.state
         api.put(`doandovidas/content/update/${contentId}`, {
-            'id' : id,
-            'video' : this.state.video
+            "video" : this.state.video,
+            "message" : this.state.message
         })
         .then(response =>{
-            
+            this.setState({
+                video : response.data.data.video,
+                success : 'Vídeo atualizado com sucesso!'
+            })
+            console.log('chegou aqui')
+            console.log(this.state.success)
         }).catch(err =>{
             console.log('deu erro')
             console.log(err.response.data)
+            this.setState({
+                error : true,
+                success : ''
+            })
         })
     }
 
-    handleRemoveVideo = (id) =>{
-        
-        api.delete(`doandovidas/content/delete/`, {
-            'id' : id,
-            'video' : null
+    handleRemoveVideo = () =>{
+        console.log(this.state.contentId)
+        api.put(`doandovidas/content/update/${this.state.contentId}`, {
+            'id' : this.state.contentId,
+            'video' : null,
+            'message' : this.state.message
         }).then(response =>{ 
             console.log(response.data)
             this.setState({
                 video : ' ',
-                hasVideo : false
+                hasVideo : false,
+                success : 'Vídeo removido com sucesso!'
             });
         }).catch(err =>{
+            this.setState({
+                error : true
+            });
             console.log(err.response);
-        })
+        });
     }
 
     render() {
-        const {video, hasVideo} = this.state
+        const {video, hasVideo, pause, error, success} = this.state;
         
         return (
             <>
-            <Header text='Meu Vídeo' />
             <View style={styles.container}>
+                {error == true && <Fail message={'Não foi possível pegar seu vídeo. Tente novamente mais tarde'}/>}
+                {success !== '' && <Success message={success}/>}
                 <View style={styles.video}>
                     <Video
                         source={{ uri: video }}
@@ -92,20 +119,20 @@ export default class VideoScreen extends React.Component {
                         controls={true}
                         fullscreenOrientation={'landscape'}
                         resizeMode={'cover'}
+                        paused={pause}
                         />
                 </View>
                 <View style={styles.options}>
-                    
                 {hasVideo &&(
                     <>
-                    <EditButton colorButton={'#D93B3B'} text='Excluir vídeo' icon={close} onClick={this.handleRemoveVideo} disabled={false}/>
-                    <EditButton colorButton={'#0389FF'} text='Trocar vídeo' icon={reload} onClick={this.chooseVideo}/>
+                    <EditButton colorButton={'#D93B3B'} text='Excluir vídeo'    icon={close} onClick={this.handleRemoveVideo} disabled={false}/>
+                    <EditButton colorButton={'#0389FF'} text='Trocar vídeo'     icon={reload} onClick={this.chooseVideo}/>
                     </>
                 )}
                 {!hasVideo &&(
                     <>
-                    <EditButton colorButton={'grey'} text='Excluir vídeo' icon={close} disabled={true}/>
-                    <EditButton colorButton={'#0389FF'} text='Adcionar vídeo' icon={upload} onClick={this.chooseVideo}/>
+                    <EditButton colorButton={'grey'} text='Excluir vídeo'       icon={close} disabled={true}/>
+                    <EditButton colorButton={'#0389FF'} text='Adcionar vídeo'   icon={upload} onClick={this.chooseVideo}/>
                     </>
                 )}
                         

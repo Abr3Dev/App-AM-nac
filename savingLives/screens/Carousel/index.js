@@ -1,9 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView, Dimensions, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 import LandingRecord from '../../components/landingPages/LandingRecord'
 import LandingSubscribe from '../../components/landingPages/LandingSubscribe'
 import LandingWarn from '../../components/landingPages/LandingWarn'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Pages} from 'react-native-pages';
 
 export default class Carousel extends React.Component{

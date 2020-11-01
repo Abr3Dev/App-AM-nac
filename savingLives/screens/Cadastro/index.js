@@ -4,18 +4,14 @@ import MainButton from '../../components/MainButton';
 import Title from '../../components/Title';
 import { formValidator } from '../../Helpers/FormValidatorRegister' 
 import {
-    TextField,
-    FilledTextField,
     OutlinedTextField,
 } from 'react-native-material-textfield';
 
 import api from '../../api/api';
+import { Fail, Success } from '../../Helpers/Messages';
 
 const width = Dimensions.get('screen').width / 100 * 90
 
-
-//Mudar as funcões recebedoras dos valores, pois está muito repetitivo. 
-//Fazer a chamada da API após o click no cadastrar. Tem que passar de uma validação. Será criada no helpers
 export default class Cadastro extends React.Component {
     state = {
             name: 'Raphael Santantonio',
@@ -24,7 +20,8 @@ export default class Cadastro extends React.Component {
             birthDate: '14/03/1999',
             gender: 'Masculino',
             password: '12345678',
-            errors: []
+            errors: [],
+            error : false
     }
 
     handleSubscribe = () => {
@@ -35,7 +32,7 @@ export default class Cadastro extends React.Component {
             email,
             birthDate,
             gender,
-            password
+            password,
         }
         const result = formValidator(user);
         this.setState({
@@ -51,25 +48,28 @@ export default class Cadastro extends React.Component {
             gender: this.state.gender
         })
             .then(resp => {
+                console.log(resp)
                 const {
                     navigation: { navigate },
                 } = this.props;
                 navigate('Login', {success : true});
             }).catch(err => {
+                console.log(err)
                 const arrErr = [null, err.response.data.errors[0], err.response.data.errors[1], null, null, null];
                 this.setState({
-                    errors : arrErr
-                })
-                
+                    errors : arrErr,
+                    error : true
+                });
             });
     }
     render() {
-        const { name, cpf, email, birthDate, gender, password, errors } = this.state
+        const { name, cpf, email, birthDate, gender, password, errors, error } = this.state
         return (
             
             <ScrollView style={{ backgroundColor: '#ECECEC' }} keyboardDismissMode={'on-drag'} >
                 {/* <Header text={'Cadastro'} /> */}
                 <View style={styles.containerTitle}>
+                    {<Fail message="Algo deu errado. Tente novamente mais tarde"/>}
                 {/* <Success message="Cadastro Realizado com sucesso!"/> */}
                     <Text style={styles.titles}>Seja bem vindo!</Text>
                     <Text style={styles.subtitle}>Cadastre-se e envie uma mensagem!</Text>

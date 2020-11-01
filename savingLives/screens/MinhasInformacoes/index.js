@@ -1,8 +1,5 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from 'react-native';
-import Input from '../../components/Input';
-import DatePicker from 'react-native-datepicker';
-import { Picker } from '@react-native-community/picker';
 import MainButton from '../../components/MainButton';
 import Title from '../../components/Title';
 import api from '../../api/api'

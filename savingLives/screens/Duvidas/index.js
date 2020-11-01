@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View,  StyleSheet, Dimensions } from 'react-native'
 import Title from '../../components/Title';
 import Topic from '../../components/Topic';
 import { faClipboardList as about } from '@fortawesome/free-solid-svg-icons';
@@ -12,10 +12,26 @@ const width = Dimensions.get('screen').width / 100 * 90
 
 export default function Duvidas(props) {
     
-    function click(){
+    function DuvidasFrequentes(){
         const { navigation : {navigate},} = props
         navigate('DuvidasFrequentes')
     }
+
+    function SobreNos(){
+        const { navigation : {navigate},} = props
+        navigate('SobreNos')
+    }
+
+    function SobreSNT(){
+        const { navigation : {navigate},} = props
+        navigate('SobreSNT')
+    }
+
+    function SobreAMensagem(){
+        const { navigation : {navigate},} = props
+        navigate('SobreAMensagem')
+    }
+    
 
     return (
             <>
@@ -26,34 +42,37 @@ export default function Duvidas(props) {
                     <View style={styles.line}>
                         <Topic
                             style={styles.topic} 
-                            text={'Minhas informações'} 
+                            text={'Quem somos nós'} 
                             backgroundText={'black'} 
                             icon={about}
                             size={36}
-                            onPress={click}
+                            onPress={SobreNos}
                         />
                         <Topic
                             icon={afterMessage}
                             style={styles.topic} 
-                            text={'Minhas informações'}                       
+                            text={'Sobre a mensagem'}                       
                             backgroundText={'black'}
                             size={36}
+                            onPress={SobreAMensagem}
                         />
                     </View>
                     <View style={styles.line}>
                         <Topic
                             icon={video}
                             style={styles.topic} 
-                            text={'Minhas informações'} 
+                            text={'Saiba mais sobre o SNT'} 
                             backgroundText={'black'}
                             size={36}
+                            onPress={SobreSNT}
                         />
                         <Topic
                             icon={howWork}
                             style={styles.topic} 
-                            text={'Minhas informações'} 
+                            text={'Dúvidas frequentes'} 
                             backgroundText={'black'}
-                            size={36}                
+                            size={36}    
+                            onPress={DuvidasFrequentes}            
                         />
                     </View>
                 </View>
